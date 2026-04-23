@@ -7,6 +7,7 @@ from streamlit_folium import st_folium
 from geo_utils import get_liwiec_geometry, distance_to_liwiec_m, liwiec_coords_for_map
 from scraper import scrape_all
 from olx_scraper import scrape_olx_all
+from gratka_scraper import scrape_gratka_all
 from liwiec_places import load_places, odcinek_options
 
 # ── Page config ───────────────────────────────────────────────────────────────
@@ -100,13 +101,13 @@ st.caption(
 st.divider()
 
 # ── Top filter bar ────────────────────────────────────────────────────────────
-c_src, c_odc, c_liwiec, c_price, c_area, c_gap, c_btn1, c_btn2 = st.columns(
-    [1.6, 1.6, 1.2, 1.5, 1.5, 0.4, 1.2, 1.2]
+c_src, c_odc, c_liwiec, c_price, c_area, c_gap, c_btn1, c_btn2, c_btn3 = st.columns(
+    [1.6, 1.6, 1.2, 1.5, 1.5, 0.3, 1.1, 1.1, 1.1]
 )
 
 with c_src:
     zrodlo_filter = st.multiselect(
-        "Źródło", options=["Otodom", "OLX"], default=["Otodom", "OLX"],
+        "Źródło", options=["Otodom", "OLX", "Gratka"], default=["Otodom", "OLX", "Gratka"],
         label_visibility="visible",
     )
 with c_odc:
@@ -129,8 +130,11 @@ with c_btn1:
 with c_btn2:
     st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
     fetch_olx = st.button("🔄 OLX", use_container_width=True, type="secondary")
+with c_btn3:
+    st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
+    fetch_gratka = st.button("🔄 Gratka", use_container_width=True, type="secondary")
 
-fetch_btn = fetch_otodom or fetch_olx
+fetch_btn = fetch_otodom or fetch_olx or fetch_gratka
 
 st.divider()
 
@@ -153,6 +157,11 @@ if fetch_btn:
         df_olx = scrape_olx_all(progress_callback=_cb)
         if not df_olx.empty:
             frames.append(df_olx)
+
+    if fetch_gratka:
+        df_gratka = scrape_gratka_all(progress_callback=_cb)
+        if not df_gratka.empty:
+            frames.append(df_gratka)
 
     bar.progress(1.0, text="Gotowe!")
 
