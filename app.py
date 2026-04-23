@@ -331,15 +331,15 @@ for _, row in df_map.iterrows():
 # Legend
 legend_html = """
 <div style="position:fixed;bottom:28px;left:28px;z-index:9999;
-            background:rgba(255,255,255,0.96);
+            background:#222;color:#eee;
             padding:12px 16px;border-radius:10px;
-            box-shadow:0 2px 10px rgba(0,0,0,0.15);
+            border:1px solid #555;
             font-family:sans-serif;font-size:12px;line-height:2">
-  <div style="font-weight:700;color:#1a2c42;margin-bottom:2px">Odcinek Liwca</div>
+  <div style="font-weight:700;margin-bottom:2px">Odcinek Liwca</div>
   <span style="color:#F4511E;font-size:16px">●</span>&nbsp;Górny bieg<br>
-  <span style="color:#2E7D32;font-size:16px">●</span>&nbsp;Środkowy bieg<br>
-  <span style="color:#1565C0;font-size:16px">●</span>&nbsp;Dolny bieg<br>
-  <span style="color:#6A1B9A;font-size:16px">●</span>&nbsp;Ujście
+  <span style="color:#4CAF50;font-size:16px">●</span>&nbsp;Środkowy bieg<br>
+  <span style="color:#64B5F6;font-size:16px">●</span>&nbsp;Dolny bieg<br>
+  <span style="color:#CE93D8;font-size:16px">●</span>&nbsp;Ujście
 </div>
 """
 m.get_root().html.add_child(folium.Element(legend_html))
