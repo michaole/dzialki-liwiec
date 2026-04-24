@@ -102,8 +102,8 @@ st.caption(
 st.divider()
 
 # ── Top filter bar ────────────────────────────────────────────────────────────
-c_src, c_odc, c_liwiec, c_price, c_area, c_new, c_gap, c_btn1, c_btn2, c_btn3 = st.columns(
-    [1.6, 1.6, 1.2, 1.4, 1.4, 1.1, 0.2, 1.1, 1.1, 1.1]
+c_src, c_odc, c_liwiec, c_price, c_area, c_new, c_gap, c_btn_all, c_btn1, c_btn2, c_btn3 = st.columns(
+    [1.6, 1.6, 1.2, 1.4, 1.4, 1.1, 0.2, 1.3, 1.0, 1.0, 1.0]
 )
 
 with c_src:
@@ -131,17 +131,23 @@ with c_new:
         value=False,
         help="Pokaż tylko ogłoszenia, które pojawiły się od ostatniego scrapowania.",
     )
+with c_btn_all:
+    st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
+    fetch_all = st.button("⚡ Wszystkie portale", use_container_width=True, type="primary")
 with c_btn1:
     st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
-    fetch_otodom = st.button("🔄 Otodom", use_container_width=True, type="primary")
+    fetch_otodom = st.button("Otodom", use_container_width=True, type="secondary")
 with c_btn2:
     st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
-    fetch_olx = st.button("🔄 OLX", use_container_width=True, type="secondary")
+    fetch_olx = st.button("OLX", use_container_width=True, type="secondary")
 with c_btn3:
     st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
-    fetch_gratka = st.button("🔄 Gratka", use_container_width=True, type="secondary")
+    fetch_gratka = st.button("Gratka", use_container_width=True, type="secondary")
 
-fetch_btn = fetch_otodom or fetch_olx or fetch_gratka
+fetch_otodom  = fetch_otodom  or fetch_all
+fetch_olx     = fetch_olx     or fetch_all
+fetch_gratka  = fetch_gratka  or fetch_all
+fetch_btn     = fetch_otodom  or fetch_olx or fetch_gratka
 
 st.divider()
 
