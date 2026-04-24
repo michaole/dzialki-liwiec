@@ -9,6 +9,7 @@ from scraper import scrape_all
 from olx_scraper import scrape_olx_all
 from gratka_scraper import scrape_gratka_all
 from liwiec_places import load_places, odcinek_options
+from historia import update_and_mark, count_new_today
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Działki nad Liwcem", page_icon="🌊", layout="wide")
@@ -101,8 +102,8 @@ st.caption(
 st.divider()
 
 # ── Top filter bar ────────────────────────────────────────────────────────────
-c_src, c_odc, c_liwiec, c_price, c_area, c_gap, c_btn1, c_btn2, c_btn3 = st.columns(
-    [1.6, 1.6, 1.2, 1.5, 1.5, 0.3, 1.1, 1.1, 1.1]
+c_src, c_odc, c_liwiec, c_price, c_area, c_new, c_gap, c_btn1, c_btn2, c_btn3 = st.columns(
+    [1.6, 1.6, 1.2, 1.4, 1.4, 1.1, 0.2, 1.1, 1.1, 1.1]
 )
 
 with c_src:
@@ -124,6 +125,12 @@ with c_price:
 with c_area:
     min_area = st.number_input("Min. pow. (m²)", min_value=0, value=0, step=100,
                                help="0 = bez limitu")
+with c_new:
+    only_new = st.checkbox(
+        "🆕 Tylko nowe",
+        value=False,
+        help="Pokaż tylko ogłoszenia, które pojawiły się od ostatniego scrapowania.",
+    )
 with c_btn1:
     st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
     fetch_otodom = st.button("🔄 Otodom", use_container_width=True, type="primary")
@@ -176,13 +183,18 @@ if fetch_btn:
                 lambda r: distance_to_liwiec_m(r["lat"], r["lon"], liwiec_geom),
                 axis=1,
             )
+
+        df_raw = update_and_mark(df_raw)
+
         st.session_state.raw_df = df_raw
         total    = len(df_raw)
         on_river = int(df_raw["na_liwcu"].sum())
+        new_today = count_new_today(df_raw)
         sources  = ", ".join(df_raw["zrodlo"].unique()) if "zrodlo" in df_raw.columns else ""
         st.success(
             f"Pobrano **{total}** ogłoszeń ({sources}) — "
-            f"**{on_river}** z miejscowości nad Liwcem."
+            f"**{on_river}** z miejscowości nad Liwcem — "
+            f"🆕 **{new_today}** nowych od ostatniego scrapowania."
         )
 
 # ── Display ───────────────────────────────────────────────────────────────────
@@ -218,6 +230,8 @@ if max_price > 0:
     df = df[df["cena_pln"].isna() | (df["cena_pln"] <= max_price)]
 if min_area > 0:
     df = df[df["powierzchnia_m2"].isna() | (df["powierzchnia_m2"] >= min_area)]
+if only_new and "nowe" in df.columns:
+    df = df[df["nowe"] == True]
 
 if len(df) == 0 and len(df_raw) > 0:
     st.warning(
@@ -226,12 +240,14 @@ if len(df) == 0 and len(df_raw) > 0:
     )
 
 # ── Metrics ───────────────────────────────────────────────────────────────────
-m1, m2, m3, m4 = st.columns(4)
+m1, m2, m3, m4, m5 = st.columns(5)
 m1.metric("Ogłoszenia (po filtrach)", len(df))
 m2.metric("Nad Liwcem", int(df_raw["na_liwcu"].sum()))
 m3.metric("Wszystkich pobranych", len(df_raw))
+if "nowe" in df_raw.columns:
+    m4.metric("🆕 Nowych od ostatniego razu", count_new_today(df_raw))
 if len(df) > 0 and df["cena_pln"].notna().any():
-    m4.metric(
+    m5.metric(
         "Mediana ceny",
         f"{int(df['cena_pln'].median()):,} PLN".replace(",", " ")
     )
@@ -283,16 +299,23 @@ for _, row in df_map.iterrows():
         if pd.notna(row.get("powierzchnia_m2")) else "—"
     dist_str = f"~{int(row['odleglosc_m'])} m" \
         if pd.notna(row.get("odleglosc_m")) else "—"
+    is_new = bool(row.get("nowe", False))
     zrodlo_badge = (
         f'<span style="background:#E3F2FD;color:#1565C0;border-radius:4px;'
         f'padding:1px 6px;font-size:10px;font-weight:700">'
         f'{row.get("zrodlo","")}</span>'
         if row.get("zrodlo") else ""
     )
+    new_badge = (
+        '<span style="background:#FF6F00;color:white;border-radius:4px;'
+        'padding:1px 6px;font-size:10px;font-weight:700;margin-left:4px">'
+        '🆕 NOWE</span>'
+        if is_new else ""
+    )
 
     popup_html = f"""
     <div style="font-family:sans-serif;font-size:13px;min-width:240px;max-width:280px">
-      <div style="margin-bottom:6px">{zrodlo_badge}
+      <div style="margin-bottom:6px">{zrodlo_badge}{new_badge}
         <span style="color:#546e7a;font-size:11px;margin-left:4px">
           {row.get("odcinek","")}
         </span>
@@ -327,14 +350,14 @@ for _, row in df_map.iterrows():
 
     folium.CircleMarker(
         location=[row["lat"], row["lon"]],
-        radius=9,
-        color="white",
-        weight=2,
+        radius=10 if is_new else 9,
+        color="#FF6F00" if is_new else "white",
+        weight=3 if is_new else 2,
         fill=True,
         fill_color=color,
         fill_opacity=0.92,
         popup=folium.Popup(popup_html, max_width=290),
-        tooltip=f"<b>{row['miejscowosc']}</b> | {cena_str}",
+        tooltip=f"{'🆕 ' if is_new else ''}<b>{row['miejscowosc']}</b> | {cena_str}",
     ).add_to(cluster)
 
 # Legend
@@ -361,6 +384,7 @@ st.divider()
 st.markdown("### 📋 Lista ogłoszeń")
 
 show_cols = {
+    "nowe":            "🆕",
     "zrodlo":          "Źródło",
     "odcinek":         "Odcinek",
     "miejscowosc":     "Miejscowość",
@@ -370,12 +394,16 @@ show_cols = {
     "powierzchnia_m2": "Pow. (m²)",
     "cena_za_m2":      "PLN/m²",
     "odleglosc_m":     "Odl. od rzeki (m)*",
+    "data_pierwszego_widzenia": "Pierwsze widzenie",
 }
 
 df_show = df[[c for c in show_cols if c in df.columns]].copy()
 df_show = df_show.rename(columns=show_cols)
 
-if "Odcinek" in df_show.columns:
+if "🆕" in df_show.columns:
+    df_show["🆕"] = df_show["🆕"].apply(lambda v: "🆕" if v else "")
+    df_show = df_show.sort_values(["🆕", "Odcinek"], ascending=[False, True], na_position="last")
+elif "Odcinek" in df_show.columns:
     df_show = df_show.sort_values(["Odcinek", "Cena (PLN)"], na_position="last")
 
 for col in ["Cena (PLN)", "Pow. (m²)", "PLN/m²"]:
