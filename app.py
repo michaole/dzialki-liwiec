@@ -95,7 +95,7 @@ liwiec_geom = st.session_state.liwiec_geom
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("## 🌊 Działki nad rzeką Liwiec")
 st.caption(
-    "Ogłoszenia z Otodom i OLX filtrowane według miejscowości nad Liwcem. "
+    "Ogłoszenia z Otodom, OLX i Gratka filtrowane według miejscowości nad Liwcem. "
     f"Baza zawiera **{len(places_df)}** miejscowości."
 )
 
