@@ -250,8 +250,8 @@ m1, m2, m3, m4, m5 = st.columns(5)
 m1.metric("Ogłoszenia (po filtrach)", len(df))
 m2.metric("Nad Liwcem", int(df_raw["na_liwcu"].sum()))
 m3.metric("Wszystkich pobranych", len(df_raw))
-if "nowe" in df_raw.columns:
-    m4.metric("🆕 Nowych od ostatniego razu", count_new_today(df_raw))
+if "nowe" in df.columns:
+    m4.metric("🆕 Nowych od ostatniego razu", count_new_today(df))
 if len(df) > 0 and df["cena_pln"].notna().any():
     m5.metric(
         "Mediana ceny",
@@ -407,7 +407,7 @@ df_show = df[[c for c in show_cols if c in df.columns]].copy()
 df_show = df_show.rename(columns=show_cols)
 
 if "🆕" in df_show.columns:
-    df_show["🆕"] = df_show["🆕"].apply(lambda v: "🆕" if v else "")
+    df_show["🆕"] = df_show["🆕"].apply(lambda v: "🆕" if v is True or v == True else "")
     df_show = df_show.sort_values(["🆕", "Odcinek"], ascending=[False, True], na_position="last")
 elif "Odcinek" in df_show.columns:
     df_show = df_show.sort_values(["Odcinek", "Cena (PLN)"], na_position="last")
