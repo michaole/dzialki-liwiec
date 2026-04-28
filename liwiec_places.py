@@ -17,14 +17,26 @@ def _normalize(name: str) -> str:
 
 def load_places() -> pd.DataFrame:
     """Return DataFrame with columns: Nazwa, Odcinek, lat, lon, Uwagi, _key."""
-    df = pd.read_csv(_CSV_PATH, sep=";")
-    df = df.rename(columns={
-        "Szerokosc_geo": "lat",
-        "Dlugosc_geo":   "lon",
-        # backwards-compat with old CSV (Polish column names)
-        "Szerokość_geo": "lat",
-        "Długość_geo":   "lon",
-    })
+    # Support both comma and semicolon separators
+    try:
+        df = pd.read_csv(_CSV_PATH, sep=";")
+        if len(df.columns) < 3:          # separator guessed wrong
+            df = pd.read_csv(_CSV_PATH)
+    except Exception:
+        df = pd.read_csv(_CSV_PATH)
+
+    # Rename lat/lon columns regardless of naming convention
+    _LAT_NAMES = {"Szerokosc_geo", "Szerokość_geo", "Szerokosc geo", "lat"}
+    _LON_NAMES = {"Dlugosc_geo",   "Długość_geo",   "Dlugosc geo",   "lon"}
+    rename = {}
+    for col in df.columns:
+        if col in _LAT_NAMES and col != "lat":
+            rename[col] = "lat"
+        elif col in _LON_NAMES and col != "lon":
+            rename[col] = "lon"
+    if rename:
+        df = df.rename(columns=rename)
+
     df["_key"] = df["Nazwa"].apply(_normalize)
     return df
 
