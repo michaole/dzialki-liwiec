@@ -9,7 +9,7 @@ from scraper import scrape_all
 from olx_scraper import scrape_olx_all
 from gratka_scraper import scrape_gratka_all
 from liwiec_places import load_places, odcinek_options
-from historia import update_and_mark, count_new_today, get_stats, get_inactive_listings
+from historia import update_and_mark, count_new_today, get_stats, get_inactive_listings, clear_inactive_listings
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Działki nad Liwcem", page_icon="🌊", layout="wide")
@@ -479,6 +479,12 @@ with tab_znikniete:
             "które zniknęły z portali — prawdopodobnie sprzedane."
         )
     else:
+        _col_info, _col_btn = st.columns([6, 1])
+        with _col_btn:
+            if st.button("🗑️ Wyczyść listę", type="secondary", use_container_width=True):
+                n = clear_inactive_listings()
+                st.success(f"Usunięto {n} wpisów.")
+                st.rerun()
         st.caption(
             f"Ogłoszenia, które **przestały pojawiać się** w wynikach wyszukiwania "
             f"— możliwe, że zostały sprzedane lub wycofane. "

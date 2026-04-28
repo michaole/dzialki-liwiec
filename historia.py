@@ -235,6 +235,17 @@ def get_price_history(listing_id: str) -> pd.DataFrame:
     return pd.DataFrame([dict(r) for r in rows])
 
 
+def clear_inactive_listings() -> int:
+    """Delete all inactive listings from the DB. Returns number of deleted rows."""
+    _ensure_schema()
+    with _db() as conn:
+        n = conn.execute(
+            "SELECT COUNT(*) FROM ogloszenia WHERE aktywne=0"
+        ).fetchone()[0]
+        conn.execute("DELETE FROM ogloszenia WHERE aktywne=0")
+    return n
+
+
 def get_inactive_listings() -> pd.DataFrame:
     """Return listings that disappeared from search results (possibly sold)."""
     _ensure_schema()
