@@ -9,7 +9,7 @@ from scraper import scrape_all
 from olx_scraper import scrape_olx_all
 from gratka_scraper import scrape_gratka_all
 from liwiec_places import load_places, odcinek_options
-from historia import update_and_mark, count_new_today
+from historia import update_and_mark, count_new_today, get_stats, get_inactive_listings
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Działki nad Liwcem", page_icon="🌊", layout="wide")
@@ -258,6 +258,19 @@ if len(df) > 0 and df["cena_pln"].notna().any():
         f"{int(df['cena_pln'].median()):,} PLN".replace(",", " ")
     )
 
+# ── DB stats strip ────────────────────────────────────────────────────────────
+db_stats = get_stats()
+if db_stats["total"] > 0:
+    st.markdown(
+        f"<div style='font-size:12px;color:#78909c;margin:4px 0 0'>"
+        f"🗄️ Baza: <b>{db_stats['total']}</b> ogłoszeń łącznie &nbsp;·&nbsp; "
+        f"<b>{db_stats['active']}</b> aktywnych &nbsp;·&nbsp; "
+        f"<b>{db_stats['inactive']}</b> znikniętych &nbsp;·&nbsp; "
+        f"<b>{db_stats['price_drops']}</b> z obniżką ceny"
+        f"</div>",
+        unsafe_allow_html=True,
+    )
+
 st.divider()
 
 # ── Map ───────────────────────────────────────────────────────────────────────
@@ -386,51 +399,121 @@ st_folium(m, use_container_width=True, height=560, returned_objects=[])
 
 st.divider()
 
-# ── Table ─────────────────────────────────────────────────────────────────────
-st.markdown("### 📋 Lista ogłoszeń")
+# ── Tabs: listings / disappeared ──────────────────────────────────────────────
+tab_lista, tab_znikniete = st.tabs(["📋 Lista ogłoszeń", "👻 Zniknęły (możliwie sprzedane)"])
 
-show_cols = {
-    "nowe":            "🆕",
-    "zrodlo":          "Źródło",
-    "odcinek":         "Odcinek",
-    "miejscowosc":     "Miejscowość",
-    "tytul":           "Tytuł",
-    "cena_pln":        "Cena (PLN)",
-    "url":             "Link",
-    "powierzchnia_m2": "Pow. (m²)",
-    "cena_za_m2":      "PLN/m²",
-    "odleglosc_m":     "Odl. od rzeki (m)*",
-    "data_pierwszego_widzenia": "Pierwsze widzenie",
-}
+with tab_lista:
+    show_cols = {
+        "nowe":            "🆕",
+        "zmiana_ceny":     "Zmiana ceny",
+        "zrodlo":          "Źródło",
+        "odcinek":         "Odcinek",
+        "miejscowosc":     "Miejscowość",
+        "tytul":           "Tytuł",
+        "cena_pln":        "Cena (PLN)",
+        "url":             "Link",
+        "powierzchnia_m2": "Pow. (m²)",
+        "cena_za_m2":      "PLN/m²",
+        "odleglosc_m":     "Odl. od rzeki (m)*",
+        "data_pierwszego_widzenia": "Pierwsze widzenie",
+    }
 
-df_show = df[[c for c in show_cols if c in df.columns]].copy()
-df_show = df_show.rename(columns=show_cols)
+    df_show = df[[c for c in show_cols if c in df.columns]].copy()
+    df_show = df_show.rename(columns=show_cols)
 
-if "🆕" in df_show.columns:
-    df_show["🆕"] = df_show["🆕"].apply(lambda v: "🆕" if v is True or v == True else "")
-    df_show = df_show.sort_values(["🆕", "Odcinek"], ascending=[False, True], na_position="last")
-elif "Odcinek" in df_show.columns:
-    df_show = df_show.sort_values(["Odcinek", "Cena (PLN)"], na_position="last")
+    # Sort BEFORE formatting (while Cena is still numeric)
+    # Order: 1) nowe first  2) odcinek A→Z  3) cena rosnąco
+    sort_keys  = []
+    sort_asc   = []
+    if "🆕" in df_show.columns:
+        df_show["🆕"] = df_show["🆕"].apply(
+            lambda v: "🆕" if v is True or v == True else ""
+        )
+        sort_keys.append("🆕");  sort_asc.append(False)
+    if "Odcinek" in df_show.columns:
+        sort_keys.append("Odcinek");  sort_asc.append(True)
+    if "Cena (PLN)" in df_show.columns:
+        sort_keys.append("Cena (PLN)");  sort_asc.append(True)
+    if sort_keys:
+        df_show = df_show.sort_values(sort_keys, ascending=sort_asc,
+                                      na_position="last")
 
-for col in ["Cena (PLN)", "Pow. (m²)", "PLN/m²"]:
-    if col in df_show.columns:
-        df_show[col] = df_show[col].apply(
-            lambda v: f"{int(v):,}".replace(",", " ") if pd.notna(v) else "—")
+    # Format price change: 🔻 -20 000 PLN or 🔺 +5 000 PLN
+    if "Zmiana ceny" in df_show.columns:
+        def _fmt_delta(v):
+            if v is None or (hasattr(v, '__float__') and pd.isna(v)):
+                return ""
+            v = float(v)
+            if abs(v) < 1:
+                return ""
+            sign = "🔻" if v < 0 else "🔺"
+            return f"{sign} {int(abs(v)):,}".replace(",", " ")
+        df_show["Zmiana ceny"] = df_show["Zmiana ceny"].apply(_fmt_delta)
 
-if "Odl. od rzeki (m)*" in df_show.columns:
-    df_show["Odl. od rzeki (m)*"] = df_show["Odl. od rzeki (m)*"].apply(
-        lambda v: f"~{int(v):,}".replace(",", " ") if pd.notna(v) else "—")
+    for col in ["Cena (PLN)", "Pow. (m²)", "PLN/m²"]:
+        if col in df_show.columns:
+            df_show[col] = df_show[col].apply(
+                lambda v: f"{int(v):,}".replace(",", " ") if pd.notna(v) else "—"
+            )
+    if "Odl. od rzeki (m)*" in df_show.columns:
+        df_show["Odl. od rzeki (m)*"] = df_show["Odl. od rzeki (m)*"].apply(
+            lambda v: f"~{int(v):,}".replace(",", " ") if pd.notna(v) else "—"
+        )
 
-st.dataframe(
-    df_show,
-    use_container_width=True,
-    column_config={
-        "Link": st.column_config.LinkColumn("Link", display_text="Otwórz →"),
-    },
-    hide_index=True,
-    height=500,
-)
-st.caption("*) Odległość liczona od centrum miejscowości do rzeki Liwiec (przybliżona).")
+    st.dataframe(
+        df_show,
+        use_container_width=True,
+        column_config={
+            "Link": st.column_config.LinkColumn("Link", display_text="Otwórz →"),
+        },
+        hide_index=True,
+        height=500,
+    )
+    st.caption("*) Odległość od centrum miejscowości do rzeki (przybliżona).")
+
+with tab_znikniete:
+    df_inactive = get_inactive_listings()
+    if df_inactive.empty:
+        st.info(
+            "Żadne ogłoszenie nie zniknęło jeszcze z wyników. "
+            "Po kolejnym scrapowaniu tutaj pojawią się działki, "
+            "które zniknęły z portali — prawdopodobnie sprzedane."
+        )
+    else:
+        st.caption(
+            f"Ogłoszenia, które **przestały pojawiać się** w wynikach wyszukiwania "
+            f"— możliwe, że zostały sprzedane lub wycofane. "
+            f"Łącznie: **{len(df_inactive)}**"
+        )
+        # Format for display
+        df_i = df_inactive.copy()
+        df_i["cena_pln"] = df_i["cena_pln"].apply(
+            lambda v: f"{int(v):,} PLN".replace(",", " ") if pd.notna(v) else "—"
+        )
+        df_i = df_i.rename(columns={
+            "zrodlo":                    "Źródło",
+            "tytul":                     "Tytuł",
+            "miejscowosc":               "Miejscowość",
+            "odcinek":                   "Odcinek",
+            "cena_pln":                  "Ostatnia cena",
+            "url":                       "Link",
+            "data_pierwszego_widzenia":  "Pierwsze widzenie",
+            "data_ostatniego_widzenia":  "Ostatnio widziane",
+        })
+        display_cols = [
+            "Źródło", "Odcinek", "Miejscowość", "Tytuł",
+            "Ostatnia cena", "Link",
+            "Pierwsze widzenie", "Ostatnio widziane",
+        ]
+        st.dataframe(
+            df_i[[c for c in display_cols if c in df_i.columns]],
+            use_container_width=True,
+            column_config={
+                "Link": st.column_config.LinkColumn("Link", display_text="Otwórz →"),
+            },
+            hide_index=True,
+            height=400,
+        )
 
 # ── Export ────────────────────────────────────────────────────────────────────
 csv_out = df.drop(columns=["id"], errors="ignore").to_csv(index=False, encoding="utf-8-sig")

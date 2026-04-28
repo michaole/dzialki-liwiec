@@ -10,3 +10,4 @@ venv/
 dist/
 build/
 historia_ogloszen.csv
+historia_ogloszen.db
