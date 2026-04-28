@@ -8,9 +8,7 @@ from gratka_scraper import scrape_gratka_all
 from liwiec_places import load_places, odcinek_options
 from historia import (update_and_mark, count_new_today, get_stats,
                       get_inactive_listings, clear_inactive_listings,
-                      get_favorites, set_favorites,
-                      get_ai_results)
-from ai_analyzer import analyze_new_listings, score_emoji, _get_client
+                      get_favorites, set_favorites)
 from notifier import send_new_listings, email_configured
 
 # ── Page config ───────────────────────────────────────────────────────────────
@@ -203,12 +201,9 @@ if db_stats["total"] > 0:
 st.divider()
 
 # ── Action buttons row ────────────────────────────────────────────────────────
-_a1, _a2, _a3 = st.columns([2, 2, 6])
+_a1, _a2 = st.columns([2, 8])
 
 with _a1:
-    run_ai = st.button("🤖 Analizuj z AI", use_container_width=True,
-                       help="Analizuje nowe ogłoszenia przez Claude i ocenia je 1–5")
-with _a2:
     send_email_btn = st.button(
         "📧 Wyślij digest",
         use_container_width=True,
@@ -216,23 +211,6 @@ with _a2:
         help="Wysyła email z nowymi ogłoszeniami" if email_configured()
              else "Skonfiguruj GMAIL_USER, GMAIL_APP_PASSWORD i NOTIFY_EMAIL w Secrets",
     )
-
-# ── AI analysis trigger ───────────────────────────────────────────────────────
-if run_ai:
-    client, client_err = _get_client()
-    if client is None:
-        st.error(f"🤖 Błąd AI: {client_err}")
-    else:
-        ai_bar = st.progress(0.0)
-        def _ai_cb(msg, frac):
-            ai_bar.progress(min(frac, 1.0), text=msg)
-        _, ai_err = analyze_new_listings(df, progress_callback=_ai_cb)
-        if ai_err:
-            st.error(f"🤖 Błąd podczas analizy:\n{ai_err}")
-        else:
-            st.rerun()
-
-ai_results = get_ai_results()
 
 # ── Email digest trigger ──────────────────────────────────────────────────────
 if send_email_btn:
@@ -272,21 +250,12 @@ with tab_lista:
                 return None
         df_show["dni_na_rynku"] = df_show["data_dodania"].apply(_days)
 
-    # AI score
-    df_show["ai_ocena"] = df_show["id"].astype(str).apply(
-        lambda i: score_emoji(ai_results.get(i, {}).get("score")) if i in ai_results else ""
-    )
-    df_show["ai_flagi"] = df_show["id"].astype(str).apply(
-        lambda i: " · ".join(ai_results[i]["flagi"]) if i in ai_results and ai_results[i]["flagi"] else ""
-    )
-
     # Favourites
     df_show["⭐"] = df_show["id"].astype(str).apply(lambda i: i in favorites)
 
     col_map = {
         "⭐":                   "⭐",
         "nowe":                 "🆕",
-        "ai_ocena":             "AI",
         "zmiana_ceny":          "Zmiana ceny",
         "zrodlo":               "Źródło",
         "odcinek":              "Odcinek",
@@ -297,7 +266,6 @@ with tab_lista:
         "powierzchnia_m2":      "Pow. (m²)",
         "cena_za_m2":           "PLN/m²",
         "dni_na_rynku":         "Dni na rynku",
-        "ai_flagi":             "Flagi AI",
         "data_pierwszego_widzenia": "Pierwsze widzenie",
     }
     keep = ["id"] + [c for c in col_map if c != "id" and c in df_show.columns]
@@ -344,12 +312,10 @@ with tab_lista:
             "id":    None,   # hidden
             "⭐":    st.column_config.CheckboxColumn("⭐", help="Oznacz jako ulubione"),
             "Link":  st.column_config.LinkColumn("Link", display_text="Otwórz →"),
-            "AI":    st.column_config.TextColumn("AI", help="Ocena Claude: ⭐=świetne 🔴=problemy"),
-            "Flagi AI": st.column_config.TextColumn("Flagi AI", width="medium"),
             "Dni na rynku": st.column_config.NumberColumn("Dni na rynku", help="Ile dni widzimy to ogłoszenie"),
         },
         disabled=[c for c in df_edit.columns if c not in ("⭐", "id")],
-        key=f"tbl_{len(df_edit)}_{len(ai_results)}",
+        key=f"tbl_{len(df_edit)}",
     )
 
     # Save favourite changes
