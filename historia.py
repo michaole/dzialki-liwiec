@@ -44,6 +44,20 @@ CREATE TABLE IF NOT EXISTS historia_cen (
     cena_pln    REAL,
     PRIMARY KEY (id, data)
 );
+
+CREATE TABLE IF NOT EXISTS ulubione (
+    id           TEXT PRIMARY KEY,
+    data_dodania TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ai_analiza (
+    id            TEXT PRIMARY KEY,
+    score         INTEGER,
+    pozytywne     TEXT,
+    flagi         TEXT,
+    podsumowanie  TEXT,
+    data_analizy  TEXT NOT NULL
+);
 """
 
 
@@ -261,3 +275,65 @@ def get_inactive_listings() -> pd.DataFrame:
     if not rows:
         return pd.DataFrame()
     return pd.DataFrame([dict(r) for r in rows])
+
+
+# ── Favourites ────────────────────────────────────────────────────────────────
+
+def get_favorites() -> set:
+    """Return set of favourite listing IDs."""
+    _ensure_schema()
+    with _db() as conn:
+        rows = conn.execute("SELECT id FROM ulubione").fetchall()
+    return {r["id"] for r in rows}
+
+
+def set_favorites(ids: set) -> None:
+    """Replace the entire favourites set with the given IDs."""
+    _ensure_schema()
+    with _db() as conn:
+        conn.execute("DELETE FROM ulubione")
+        today = date.today().isoformat()
+        conn.executemany(
+            "INSERT OR IGNORE INTO ulubione (id, data_dodania) VALUES (?,?)",
+            [(lid, today) for lid in ids],
+        )
+
+
+# ── AI analysis ───────────────────────────────────────────────────────────────
+
+def save_ai_result(listing_id: str, score: int,
+                   pozytywne: list, flagi: list, podsumowanie: str) -> None:
+    """Persist AI analysis result for one listing."""
+    import json
+    _ensure_schema()
+    today = date.today().isoformat()
+    with _db() as conn:
+        conn.execute("""
+            INSERT OR REPLACE INTO ai_analiza
+                (id, score, pozytywne, flagi, podsumowanie, data_analizy)
+            VALUES (?,?,?,?,?,?)
+        """, (
+            listing_id, score,
+            json.dumps(pozytywne, ensure_ascii=False),
+            json.dumps(flagi,     ensure_ascii=False),
+            podsumowanie, today,
+        ))
+
+
+def get_ai_results() -> dict:
+    """Return {id: {score, pozytywne, flagi, podsumowanie}} from cache."""
+    import json
+    _ensure_schema()
+    with _db() as conn:
+        rows = conn.execute(
+            "SELECT id, score, pozytywne, flagi, podsumowanie FROM ai_analiza"
+        ).fetchall()
+    out = {}
+    for r in rows:
+        out[r["id"]] = {
+            "score":        r["score"],
+            "pozytywne":    json.loads(r["pozytywne"] or "[]"),
+            "flagi":        json.loads(r["flagi"]     or "[]"),
+            "podsumowanie": r["podsumowanie"] or "",
+        }
+    return out

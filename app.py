@@ -1,11 +1,17 @@
 import streamlit as st
 import pandas as pd
+from datetime import date
 
 from scraper import scrape_all
 from olx_scraper import scrape_olx_all
 from gratka_scraper import scrape_gratka_all
 from liwiec_places import load_places, odcinek_options
-from historia import update_and_mark, count_new_today, get_stats, get_inactive_listings, clear_inactive_listings
+from historia import (update_and_mark, count_new_today, get_stats,
+                      get_inactive_listings, clear_inactive_listings,
+                      get_favorites, set_favorites,
+                      get_ai_results)
+from ai_analyzer import analyze_new_listings, score_emoji
+from notifier import send_new_listings, email_configured
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Działki nad Liwcem", page_icon="🌊", layout="wide")
@@ -18,43 +24,28 @@ st.markdown("""
 div[data-testid="stHorizontalBlock"] .stSelectbox label,
 div[data-testid="stHorizontalBlock"] .stMultiSelect label,
 div[data-testid="stHorizontalBlock"] .stNumberInput label {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #5e6e82;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    font-size: 0.78rem; font-weight: 600; color: #5e6e82;
+    text-transform: uppercase; letter-spacing: 0.04em;
 }
-
 div[data-testid="metric-container"] {
-    background: #f8fafd;
-    border: 1px solid #dce6f0;
-    border-radius: 12px;
-    padding: 14px 18px;
+    background: #f8fafd; border: 1px solid #dce6f0;
+    border-radius: 12px; padding: 14px 18px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #1565C0;
+    font-size: 1.6rem; font-weight: 700; color: #1565C0;
 }
 div[data-testid="metric-container"] [data-testid="stMetricLabel"] {
-    font-size: 0.78rem;
-    color: #5e6e82;
+    font-size: 0.78rem; color: #5e6e82;
 }
-
 div[data-testid="stHorizontalBlock"] .stButton > button[kind="primary"] {
     background: linear-gradient(135deg, #1565C0, #1976D2);
-    border: none;
-    border-radius: 10px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    border: none; border-radius: 10px; font-weight: 700;
     box-shadow: 0 2px 6px rgba(21,101,192,0.35);
 }
 div[data-testid="stHorizontalBlock"] .stButton > button[kind="secondary"] {
-    border-radius: 10px;
-    font-weight: 600;
+    border-radius: 10px; font-weight: 600;
 }
-
 h3 { color: #1a2c42; margin-top: 0.5rem !important; }
 div[data-testid="stDataFrame"] { border-radius: 10px; overflow: hidden; }
 hr { border-color: #e0eaf4 !important; margin: 0.6rem 0 !important; }
@@ -64,7 +55,6 @@ hr { border-color: #e0eaf4 !important; margin: 0.6rem 0 !important; }
 # ── Load static data ──────────────────────────────────────────────────────────
 places_df = load_places()
 
-# ── Session state ─────────────────────────────────────────────────────────────
 if "raw_df" not in st.session_state:
     st.session_state.raw_df = None
 
@@ -94,12 +84,10 @@ with c_area:
                                help="0 = bez limitu")
 with c_liwiec:
     st.markdown("<div style='margin-top:28px'></div>", unsafe_allow_html=True)
-    only_liwiec = st.checkbox("Tylko nad Liwcem", value=True,
-                              help="Odznacz, żeby zobaczyć ogłoszenia spoza listy CSV.")
+    only_liwiec = st.checkbox("Tylko nad Liwcem", value=True)
 with c_new:
     st.markdown("<div style='margin-top:28px'></div>", unsafe_allow_html=True)
-    only_new = st.checkbox("🆕 Tylko nowe", value=False,
-                           help="Pokaż tylko ogłoszenia nowe od ostatniego scrapowania.")
+    only_new = st.checkbox("🆕 Tylko nowe", value=False)
 
 # ── Filter bar — row 2: buttons ───────────────────────────────────────────────
 _, c_btn_all, c_btn1, c_btn2, c_btn3 = st.columns([4, 2.5, 1.3, 1.3, 1.3])
@@ -128,18 +116,15 @@ if fetch_btn:
         bar.progress(min(frac, 1.0), text=msg)
 
     frames = []
-
     if fetch_otodom:
         df_oto = scrape_all(progress_callback=_cb)
         if not df_oto.empty:
             df_oto["zrodlo"] = "Otodom"
             frames.append(df_oto)
-
     if fetch_olx:
         df_olx = scrape_olx_all(progress_callback=_cb)
         if not df_olx.empty:
             frames.append(df_olx)
-
     if fetch_gratka:
         df_gratka = scrape_gratka_all(progress_callback=_cb)
         if not df_gratka.empty:
@@ -153,7 +138,6 @@ if fetch_btn:
         df_raw = pd.concat(frames, ignore_index=True)
         df_raw = df_raw.drop_duplicates(subset=["tytul", "miejscowosc"], keep="first")
         df_raw = update_and_mark(df_raw)
-
         st.session_state.raw_df = df_raw
         total     = len(df_raw)
         on_river  = int(df_raw["na_liwcu"].sum())
@@ -174,7 +158,6 @@ if df_raw is None:
 
 # ── Apply filters ─────────────────────────────────────────────────────────────
 df = df_raw.copy()
-
 if zrodlo_filter and "zrodlo" in df.columns:
     df = df[df["zrodlo"].isin(zrodlo_filter)]
 if only_liwiec:
@@ -219,40 +202,116 @@ if db_stats["total"] > 0:
 
 st.divider()
 
+# ── Action buttons row ────────────────────────────────────────────────────────
+_a1, _a2, _a3 = st.columns([2, 2, 6])
+
+with _a1:
+    run_ai = st.button("🤖 Analizuj z AI", use_container_width=True,
+                       help="Analizuje nowe ogłoszenia przez Claude i ocenia je 1–5")
+with _a2:
+    send_email_btn = st.button(
+        "📧 Wyślij digest",
+        use_container_width=True,
+        disabled=not email_configured(),
+        help="Wysyła email z nowymi ogłoszeniami" if email_configured()
+             else "Skonfiguruj GMAIL_USER, GMAIL_APP_PASSWORD i NOTIFY_EMAIL w Secrets",
+    )
+
+# ── AI analysis trigger ───────────────────────────────────────────────────────
+if run_ai:
+    ai_bar = st.progress(0.0)
+    def _ai_cb(msg, frac):
+        ai_bar.progress(min(frac, 1.0), text=msg)
+    ai_results = analyze_new_listings(df, progress_callback=_ai_cb)
+    ai_bar.progress(1.0, text="Analiza zakończona!")
+    st.success(f"✅ AI przeanalizowało ogłoszenia. Wyniki widoczne w tabeli.")
+else:
+    ai_results = get_ai_results()
+
+# ── Email digest trigger ──────────────────────────────────────────────────────
+if send_email_btn:
+    new_df = df[df.get("nowe", pd.Series(False, index=df.index)) == True] \
+             if "nowe" in df.columns else df
+    ok = send_new_listings(new_df if not new_df.empty else df)
+    if ok:
+        st.success("📧 Email wysłany!")
+    else:
+        st.error("Błąd wysyłki. Sprawdź konfigurację SMTP w Secrets.")
+
+st.divider()
+
 # ── Tabs ──────────────────────────────────────────────────────────────────────
 tab_lista, tab_znikniete = st.tabs(["📋 Lista ogłoszeń", "👻 Zniknęły (możliwie sprzedane)"])
 
 with tab_lista:
-    show_cols = {
-        "nowe":            "🆕",
-        "zmiana_ceny":     "Zmiana ceny",
-        "zrodlo":          "Źródło",
-        "odcinek":         "Odcinek",
-        "miejscowosc":     "Miejscowość",
-        "tytul":           "Tytuł",
-        "cena_pln":        "Cena (PLN)",
-        "url":             "Link",
-        "powierzchnia_m2": "Pow. (m²)",
-        "cena_za_m2":      "PLN/m²",
+    today = date.today()
+    favorites = get_favorites()
+
+    # Enrich df with computed columns
+    df_show = df.copy()
+
+    # Days on market
+    if "data_pierwszego_widzenia" in df_show.columns:
+        def _days(v):
+            try:
+                return (today - date.fromisoformat(str(v))).days
+            except Exception:
+                return None
+        df_show["dni_na_rynku"] = df_show["data_pierwszego_widzenia"].apply(_days)
+    elif "data_dodania" in df_show.columns:
+        def _days(v):
+            try:
+                return (today - date.fromisoformat(str(v)[:10])).days
+            except Exception:
+                return None
+        df_show["dni_na_rynku"] = df_show["data_dodania"].apply(_days)
+
+    # AI score
+    df_show["ai_ocena"] = df_show["id"].astype(str).apply(
+        lambda i: score_emoji(ai_results.get(i, {}).get("score")) if i in ai_results else ""
+    )
+    df_show["ai_flagi"] = df_show["id"].astype(str).apply(
+        lambda i: " · ".join(ai_results[i]["flagi"]) if i in ai_results and ai_results[i]["flagi"] else ""
+    )
+
+    # Favourites
+    df_show["⭐"] = df_show["id"].astype(str).apply(lambda i: i in favorites)
+
+    col_map = {
+        "⭐":                   "⭐",
+        "nowe":                 "🆕",
+        "ai_ocena":             "AI",
+        "zmiana_ceny":          "Zmiana ceny",
+        "zrodlo":               "Źródło",
+        "odcinek":              "Odcinek",
+        "miejscowosc":          "Miejscowość",
+        "tytul":                "Tytuł",
+        "cena_pln":             "Cena (PLN)",
+        "url":                  "Link",
+        "powierzchnia_m2":      "Pow. (m²)",
+        "cena_za_m2":           "PLN/m²",
+        "dni_na_rynku":         "Dni na rynku",
+        "ai_flagi":             "Flagi AI",
         "data_pierwszego_widzenia": "Pierwsze widzenie",
     }
+    keep = ["id"] + [c for c in col_map if c != "id" and c in df_show.columns]
+    df_edit = df_show[keep].copy()
+    df_edit = df_edit.rename(columns={k: v for k, v in col_map.items() if k in df_edit.columns})
 
-    df_show = df[[c for c in show_cols if c in df.columns]].copy()
-    df_show = df_show.rename(columns=show_cols)
-
-    # Sort: nowe first → odcinek → cena (numeric, before formatting)
+    # Sort: new first → odcinek → price (numeric, before string formatting)
     sort_keys, sort_asc = [], []
-    if "🆕" in df_show.columns:
-        df_show["🆕"] = df_show["🆕"].apply(lambda v: "🆕" if v is True or v == True else "")
-        sort_keys.append("🆕");  sort_asc.append(False)
-    if "Odcinek" in df_show.columns:
-        sort_keys.append("Odcinek");  sort_asc.append(True)
-    if "Cena (PLN)" in df_show.columns:
-        sort_keys.append("Cena (PLN)");  sort_asc.append(True)
+    if "🆕" in df_edit.columns:
+        df_edit["🆕"] = df_edit["🆕"].apply(lambda v: "🆕" if v is True or v == True else "")
+        sort_keys.append("🆕"); sort_asc.append(False)
+    if "Odcinek" in df_edit.columns:
+        sort_keys.append("Odcinek"); sort_asc.append(True)
+    if "Cena (PLN)" in df_edit.columns:
+        sort_keys.append("Cena (PLN)"); sort_asc.append(True)
     if sort_keys:
-        df_show = df_show.sort_values(sort_keys, ascending=sort_asc, na_position="last")
+        df_edit = df_edit.sort_values(sort_keys, ascending=sort_asc, na_position="last")
 
-    if "Zmiana ceny" in df_show.columns:
+    # Format price change
+    if "Zmiana ceny" in df_edit.columns:
         def _fmt_delta(v):
             try:
                 v = float(v)
@@ -261,20 +320,37 @@ with tab_lista:
             if pd.isna(v) or abs(v) < 1:
                 return ""
             return f"{'🔻' if v < 0 else '🔺'} {int(abs(v)):,}".replace(",", " ")
-        df_show["Zmiana ceny"] = df_show["Zmiana ceny"].apply(_fmt_delta)
+        df_edit["Zmiana ceny"] = df_edit["Zmiana ceny"].apply(_fmt_delta)
 
+    # Format numbers
     for col in ["Cena (PLN)", "Pow. (m²)", "PLN/m²"]:
-        if col in df_show.columns:
-            df_show[col] = df_show[col].apply(
+        if col in df_edit.columns:
+            df_edit[col] = df_edit[col].apply(
                 lambda v: f"{int(v):,}".replace(",", " ") if pd.notna(v) else "—")
 
-    st.dataframe(
-        df_show,
+    # data_editor — ⭐ is the only editable column; id is hidden
+    edited = st.data_editor(
+        df_edit,
         use_container_width=True,
-        column_config={"Link": st.column_config.LinkColumn("Link", display_text="Otwórz →")},
         hide_index=True,
         height=560,
+        column_config={
+            "id":    None,   # hidden
+            "⭐":    st.column_config.CheckboxColumn("⭐", help="Oznacz jako ulubione"),
+            "Link":  st.column_config.LinkColumn("Link", display_text="Otwórz →"),
+            "AI":    st.column_config.TextColumn("AI", help="Ocena Claude: ⭐=świetne 🔴=problemy"),
+            "Flagi AI": st.column_config.TextColumn("Flagi AI", width="medium"),
+            "Dni na rynku": st.column_config.NumberColumn("Dni na rynku", help="Ile dni widzimy to ogłoszenie"),
+        },
+        disabled=[c for c in df_edit.columns if c not in ("⭐", "id")],
+        key=f"tbl_{len(df_edit)}",
     )
+
+    # Save favourite changes
+    new_favs = set(edited.loc[edited["⭐"] == True, "id"].astype(str))
+    if new_favs != favorites:
+        set_favorites(new_favs)
+        st.toast("⭐ Ulubione zapisane!")
 
 with tab_znikniete:
     df_inactive = get_inactive_listings()
