@@ -222,11 +222,10 @@ if run_ai:
     ai_bar = st.progress(0.0)
     def _ai_cb(msg, frac):
         ai_bar.progress(min(frac, 1.0), text=msg)
-    ai_results = analyze_new_listings(df, progress_callback=_ai_cb)
-    ai_bar.progress(1.0, text="Analiza zakończona!")
-    st.success(f"✅ AI przeanalizowało ogłoszenia. Wyniki widoczne w tabeli.")
-else:
-    ai_results = get_ai_results()
+    analyze_new_listings(df, progress_callback=_ai_cb)
+    st.rerun()   # odśwież stronę — tabela wczyta wyniki z bazy
+
+ai_results = get_ai_results()
 
 # ── Email digest trigger ──────────────────────────────────────────────────────
 if send_email_btn:
@@ -343,7 +342,7 @@ with tab_lista:
             "Dni na rynku": st.column_config.NumberColumn("Dni na rynku", help="Ile dni widzimy to ogłoszenie"),
         },
         disabled=[c for c in df_edit.columns if c not in ("⭐", "id")],
-        key=f"tbl_{len(df_edit)}",
+        key=f"tbl_{len(df_edit)}_{len(ai_results)}",
     )
 
     # Save favourite changes

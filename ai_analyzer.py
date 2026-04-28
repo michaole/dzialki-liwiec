@@ -11,7 +11,7 @@ import pandas as pd
 
 from historia import save_ai_result, get_ai_results
 
-_MODEL = "claude-haiku-4-5"
+_MODEL = "claude-haiku-4-5-20251001"
 
 _SYSTEM = """\
 Jesteś ekspertem od rynku nieruchomości w Polsce. Analizujesz ogłoszenia \
