@@ -17,8 +17,11 @@ def _normalize(name: str) -> str:
 
 def load_places() -> pd.DataFrame:
     """Return DataFrame with columns: Nazwa, Odcinek, lat, lon, Uwagi, _key."""
-    df = pd.read_csv(_CSV_PATH)
+    df = pd.read_csv(_CSV_PATH, sep=";")
     df = df.rename(columns={
+        "Szerokosc_geo": "lat",
+        "Dlugosc_geo":   "lon",
+        # backwards-compat with old CSV (Polish column names)
         "Szerokość_geo": "lat",
         "Długość_geo":   "lon",
     })
@@ -31,12 +34,10 @@ _PLACES_DF = load_places()
 _LOOKUP: dict = {row["_key"]: row for _, row in _PLACES_DF.iterrows()}
 
 
-# Manual aliases: Otodom spelling variants → normalised CSV key
-# Add here when Otodom uses a different name than the CSV
+# Manual aliases: portal spelling variants → normalised CSV key
 _ALIASES: dict = {
-    "pruszyn-pienki":  "pruszyn",
-    "pruszyn pienki":  "pruszyn",
-    "wyszkow wegrowski": "wyszkow wegrowski",  # explicit – never match bare "wyszkow"
+    "branszczyknakiel": "branszczyknakiel",   # hyphen variant
+    "bransczczyk-nakiel": "branszczyknakiel",
 }
 
 
