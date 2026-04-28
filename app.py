@@ -101,47 +101,46 @@ st.caption(
 
 st.divider()
 
-# ── Top filter bar ────────────────────────────────────────────────────────────
-c_src, c_odc, c_liwiec, c_price, c_area, c_new, c_gap, c_btn_all, c_btn1, c_btn2, c_btn3 = st.columns(
-    [1.6, 1.6, 1.2, 1.4, 1.4, 1.1, 0.2, 1.3, 1.0, 1.0, 1.0]
-)
+# ── Top filter bar — row 1: filters ──────────────────────────────────────────
+c_src, c_odc, c_price, c_area, c_liwiec, c_new = st.columns([2, 2, 1.6, 1.6, 1.4, 1.4])
 
 with c_src:
     zrodlo_filter = st.multiselect(
-        "Źródło", options=["Otodom", "OLX", "Gratka"], default=["Otodom", "OLX", "Gratka"],
-        label_visibility="visible",
+        "Źródło",
+        options=["Otodom", "OLX", "Gratka"],
+        default=["Otodom", "OLX", "Gratka"],
     )
 with c_odc:
     odcinek = st.selectbox("Odcinek rzeki", options=odcinek_options())
-with c_liwiec:
-    only_liwiec = st.checkbox(
-        "Tylko nad Liwcem",
-        value=True,
-        help="Odznacz, żeby zobaczyć też ogłoszenia spoza listy CSV.",
-    )
 with c_price:
     max_price = st.number_input("Maks. cena (PLN)", min_value=0, value=0, step=10_000,
                                 help="0 = bez limitu")
 with c_area:
     min_area = st.number_input("Min. pow. (m²)", min_value=0, value=0, step=100,
                                help="0 = bez limitu")
-with c_new:
-    only_new = st.checkbox(
-        "🆕 Tylko nowe",
-        value=False,
-        help="Pokaż tylko ogłoszenia, które pojawiły się od ostatniego scrapowania.",
+with c_liwiec:
+    st.markdown("<div style='margin-top:28px'></div>", unsafe_allow_html=True)
+    only_liwiec = st.checkbox(
+        "Tylko nad Liwcem", value=True,
+        help="Odznacz, żeby zobaczyć też ogłoszenia spoza listy CSV.",
     )
+with c_new:
+    st.markdown("<div style='margin-top:28px'></div>", unsafe_allow_html=True)
+    only_new = st.checkbox(
+        "🆕 Tylko nowe", value=False,
+        help="Pokaż tylko ogłoszenia nowe od ostatniego scrapowania.",
+    )
+
+# ── Row 2: fetch buttons ──────────────────────────────────────────────────────
+_, c_btn_all, c_btn1, c_btn2, c_btn3 = st.columns([4, 2.5, 1.3, 1.3, 1.3])
+
 with c_btn_all:
-    st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
     fetch_all = st.button("⚡ Wszystkie portale", use_container_width=True, type="primary")
 with c_btn1:
-    st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
     fetch_otodom = st.button("Otodom", use_container_width=True, type="secondary")
 with c_btn2:
-    st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
     fetch_olx = st.button("OLX", use_container_width=True, type="secondary")
 with c_btn3:
-    st.markdown("<div style='margin-top:22px'></div>", unsafe_allow_html=True)
     fetch_gratka = st.button("Gratka", use_container_width=True, type="secondary")
 
 fetch_otodom  = fetch_otodom  or fetch_all
@@ -207,7 +206,7 @@ if fetch_btn:
 df_raw = st.session_state.raw_df
 
 if df_raw is None:
-    st.info("👆 Kliknij **🔄 Otodom** lub **🔄 OLX** powyżej, aby pobrać ogłoszenia.")
+    st.info("👆 Kliknij **⚡ Wszystkie portale** aby pobrać z Otodom, OLX i Gratka naraz — albo wybierz konkretny portal po prawej.")
     # Show empty map
     m0 = folium.Map(location=[52.46, 21.85], zoom_start=10,
                     tiles="CartoDB positron")
