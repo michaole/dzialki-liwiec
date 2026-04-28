@@ -10,7 +10,7 @@ from historia import (update_and_mark, count_new_today, get_stats,
                       get_inactive_listings, clear_inactive_listings,
                       get_favorites, set_favorites,
                       get_ai_results)
-from ai_analyzer import analyze_new_listings, score_emoji
+from ai_analyzer import analyze_new_listings, score_emoji, _get_client
 from notifier import send_new_listings, email_configured
 
 # ── Page config ───────────────────────────────────────────────────────────────
@@ -219,11 +219,18 @@ with _a2:
 
 # ── AI analysis trigger ───────────────────────────────────────────────────────
 if run_ai:
-    ai_bar = st.progress(0.0)
-    def _ai_cb(msg, frac):
-        ai_bar.progress(min(frac, 1.0), text=msg)
-    analyze_new_listings(df, progress_callback=_ai_cb)
-    st.rerun()   # odśwież stronę — tabela wczyta wyniki z bazy
+    client, client_err = _get_client()
+    if client is None:
+        st.error(f"🤖 Błąd AI: {client_err}")
+    else:
+        ai_bar = st.progress(0.0)
+        def _ai_cb(msg, frac):
+            ai_bar.progress(min(frac, 1.0), text=msg)
+        _, ai_err = analyze_new_listings(df, progress_callback=_ai_cb)
+        if ai_err:
+            st.error(f"🤖 Błąd podczas analizy:\n{ai_err}")
+        else:
+            st.rerun()
 
 ai_results = get_ai_results()
 
