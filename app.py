@@ -1,10 +1,6 @@
 import streamlit as st
 import pandas as pd
-import folium
-from folium.plugins import MarkerCluster
-from streamlit_folium import st_folium
 
-from geo_utils import get_liwiec_geometry, distance_to_liwiec_m, liwiec_coords_for_map
 from scraper import scrape_all
 from olx_scraper import scrape_olx_all
 from gratka_scraper import scrape_gratka_all
@@ -17,10 +13,8 @@ st.set_page_config(page_title="Działki nad Liwcem", page_icon="🌊", layout="w
 # ── Custom CSS ────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-/* Overall page */
 .block-container { padding-top: 1.2rem; padding-bottom: 1rem; max-width: 1300px; }
 
-/* Filter pill bar */
 div[data-testid="stHorizontalBlock"] .stSelectbox label,
 div[data-testid="stHorizontalBlock"] .stMultiSelect label,
 div[data-testid="stHorizontalBlock"] .stNumberInput label {
@@ -31,7 +25,6 @@ div[data-testid="stHorizontalBlock"] .stNumberInput label {
     letter-spacing: 0.04em;
 }
 
-/* Metric cards */
 div[data-testid="metric-container"] {
     background: #f8fafd;
     border: 1px solid #dce6f0;
@@ -49,7 +42,6 @@ div[data-testid="metric-container"] [data-testid="stMetricLabel"] {
     color: #5e6e82;
 }
 
-/* Primary fetch buttons */
 div[data-testid="stHorizontalBlock"] .stButton > button[kind="primary"] {
     background: linear-gradient(135deg, #1565C0, #1976D2);
     border: none;
@@ -57,24 +49,14 @@ div[data-testid="stHorizontalBlock"] .stButton > button[kind="primary"] {
     font-weight: 700;
     letter-spacing: 0.02em;
     box-shadow: 0 2px 6px rgba(21,101,192,0.35);
-    transition: transform 0.1s, box-shadow 0.1s;
-}
-div[data-testid="stHorizontalBlock"] .stButton > button[kind="primary"]:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(21,101,192,0.45);
 }
 div[data-testid="stHorizontalBlock"] .stButton > button[kind="secondary"] {
     border-radius: 10px;
     font-weight: 600;
 }
 
-/* Section headings */
 h3 { color: #1a2c42; margin-top: 0.5rem !important; }
-
-/* Dataframe */
 div[data-testid="stDataFrame"] { border-radius: 10px; overflow: hidden; }
-
-/* Divider styling */
 hr { border-color: #e0eaf4 !important; margin: 0.6rem 0 !important; }
 </style>
 """, unsafe_allow_html=True)
@@ -85,12 +67,6 @@ places_df = load_places()
 # ── Session state ─────────────────────────────────────────────────────────────
 if "raw_df" not in st.session_state:
     st.session_state.raw_df = None
-if "liwiec_geom" not in st.session_state:
-    st.session_state.liwiec_geom = None
-
-if st.session_state.liwiec_geom is None:
-    st.session_state.liwiec_geom = get_liwiec_geometry()
-liwiec_geom = st.session_state.liwiec_geom
 
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("## 🌊 Działki nad rzeką Liwiec")
@@ -101,14 +77,12 @@ st.caption(
 
 st.divider()
 
-# ── Top filter bar — row 1: filters ──────────────────────────────────────────
+# ── Filter bar — row 1 ────────────────────────────────────────────────────────
 c_src, c_odc, c_price, c_area, c_liwiec, c_new = st.columns([2, 2, 1.6, 1.6, 1.4, 1.4])
 
 with c_src:
     zrodlo_filter = st.multiselect(
-        "Źródło",
-        options=["Otodom", "OLX", "Gratka"],
-        default=["Otodom", "OLX", "Gratka"],
+        "Źródło", options=["Otodom", "OLX", "Gratka"], default=["Otodom", "OLX", "Gratka"],
     )
 with c_odc:
     odcinek = st.selectbox("Odcinek rzeki", options=odcinek_options())
@@ -120,18 +94,14 @@ with c_area:
                                help="0 = bez limitu")
 with c_liwiec:
     st.markdown("<div style='margin-top:28px'></div>", unsafe_allow_html=True)
-    only_liwiec = st.checkbox(
-        "Tylko nad Liwcem", value=True,
-        help="Odznacz, żeby zobaczyć też ogłoszenia spoza listy CSV.",
-    )
+    only_liwiec = st.checkbox("Tylko nad Liwcem", value=True,
+                              help="Odznacz, żeby zobaczyć ogłoszenia spoza listy CSV.")
 with c_new:
     st.markdown("<div style='margin-top:28px'></div>", unsafe_allow_html=True)
-    only_new = st.checkbox(
-        "🆕 Tylko nowe", value=False,
-        help="Pokaż tylko ogłoszenia nowe od ostatniego scrapowania.",
-    )
+    only_new = st.checkbox("🆕 Tylko nowe", value=False,
+                           help="Pokaż tylko ogłoszenia nowe od ostatniego scrapowania.")
 
-# ── Row 2: fetch buttons ──────────────────────────────────────────────────────
+# ── Filter bar — row 2: buttons ───────────────────────────────────────────────
 _, c_btn_all, c_btn1, c_btn2, c_btn3 = st.columns([4, 2.5, 1.3, 1.3, 1.3])
 
 with c_btn_all:
@@ -143,10 +113,10 @@ with c_btn2:
 with c_btn3:
     fetch_gratka = st.button("Gratka", use_container_width=True, type="secondary")
 
-fetch_otodom  = fetch_otodom  or fetch_all
-fetch_olx     = fetch_olx     or fetch_all
-fetch_gratka  = fetch_gratka  or fetch_all
-fetch_btn     = fetch_otodom  or fetch_olx or fetch_gratka
+fetch_otodom = fetch_otodom or fetch_all
+fetch_olx    = fetch_olx    or fetch_all
+fetch_gratka = fetch_gratka or fetch_all
+fetch_btn    = fetch_otodom or fetch_olx or fetch_gratka
 
 st.divider()
 
@@ -182,20 +152,13 @@ if fetch_btn:
     else:
         df_raw = pd.concat(frames, ignore_index=True)
         df_raw = df_raw.drop_duplicates(subset=["tytul", "miejscowosc"], keep="first")
-
-        with st.spinner("Obliczam odległości od rzeki…"):
-            df_raw["odleglosc_m"] = df_raw.apply(
-                lambda r: distance_to_liwiec_m(r["lat"], r["lon"], liwiec_geom),
-                axis=1,
-            )
-
         df_raw = update_and_mark(df_raw)
 
         st.session_state.raw_df = df_raw
-        total    = len(df_raw)
-        on_river = int(df_raw["na_liwcu"].sum())
+        total     = len(df_raw)
+        on_river  = int(df_raw["na_liwcu"].sum())
         new_today = count_new_today(df_raw)
-        sources  = ", ".join(df_raw["zrodlo"].unique()) if "zrodlo" in df_raw.columns else ""
+        sources   = ", ".join(df_raw["zrodlo"].unique()) if "zrodlo" in df_raw.columns else ""
         st.success(
             f"Pobrano **{total}** ogłoszeń ({sources}) — "
             f"**{on_river}** z miejscowości nad Liwcem — "
@@ -207,19 +170,6 @@ df_raw = st.session_state.raw_df
 
 if df_raw is None:
     st.info("👆 Kliknij **⚡ Wszystkie portale** aby pobrać z Otodom, OLX i Gratka naraz — albo wybierz konkretny portal po prawej.")
-    # Show empty map
-    m0 = folium.Map(location=[52.46, 21.85], zoom_start=10,
-                    tiles="CartoDB positron")
-    for segment in liwiec_coords_for_map(liwiec_geom):
-        folium.PolyLine(segment, color="#1565C0", weight=5, opacity=0.8,
-                        tooltip="Rzeka Liwiec").add_to(m0)
-    for _, p in places_df.iterrows():
-        folium.CircleMarker(
-            location=[p["lat"], p["lon"]], radius=5,
-            color="#43A047", fill=True, fill_color="#43A047", fill_opacity=0.6,
-            tooltip=f"{p['Nazwa']} ({p['Odcinek']})",
-        ).add_to(m0)
-    st_folium(m0, use_container_width=True, height=520, returned_objects=[])
     st.stop()
 
 # ── Apply filters ─────────────────────────────────────────────────────────────
@@ -252,17 +202,14 @@ m3.metric("Wszystkich pobranych", len(df_raw))
 if "nowe" in df.columns:
     m4.metric("🆕 Nowych od ostatniego razu", count_new_today(df))
 if len(df) > 0 and df["cena_pln"].notna().any():
-    m5.metric(
-        "Mediana ceny",
-        f"{int(df['cena_pln'].median()):,} PLN".replace(",", " ")
-    )
+    m5.metric("Mediana ceny",
+              f"{int(df['cena_pln'].median()):,} PLN".replace(",", " "))
 
-# ── DB stats strip ────────────────────────────────────────────────────────────
 db_stats = get_stats()
 if db_stats["total"] > 0:
     st.markdown(
         f"<div style='font-size:12px;color:#78909c;margin:4px 0 0'>"
-        f"🗄️ Baza: <b>{db_stats['total']}</b> ogłoszeń łącznie &nbsp;·&nbsp; "
+        f"🗄️ Baza: <b>{db_stats['total']}</b> łącznie &nbsp;·&nbsp; "
         f"<b>{db_stats['active']}</b> aktywnych &nbsp;·&nbsp; "
         f"<b>{db_stats['inactive']}</b> znikniętych &nbsp;·&nbsp; "
         f"<b>{db_stats['price_drops']}</b> z obniżką ceny"
@@ -272,133 +219,7 @@ if db_stats["total"] > 0:
 
 st.divider()
 
-# ── Map ───────────────────────────────────────────────────────────────────────
-st.markdown("### 🗺️ Mapa ogłoszeń")
-
-ODCINEK_COLOR = {
-    "Górny bieg":    "#F4511E",
-    "Środkowy bieg": "#2E7D32",
-    "Dolny bieg":    "#1565C0",
-    "Ujście":        "#6A1B9A",
-}
-
-m = folium.Map(
-    location=[52.46, 21.85],
-    zoom_start=10,
-    tiles="CartoDB positron",
-    prefer_canvas=True,
-)
-
-# River line — double-layer for glow effect
-for segment in liwiec_coords_for_map(liwiec_geom):
-    folium.PolyLine(
-        segment, color="#90CAF9", weight=10, opacity=0.35,
-    ).add_to(m)
-    folium.PolyLine(
-        segment, color="#1565C0", weight=4, opacity=0.9,
-        tooltip="Rzeka Liwiec",
-    ).add_to(m)
-
-# Markers with clustering
-cluster = MarkerCluster(
-    options={
-        "maxClusterRadius": 45,
-        "disableClusteringAtZoom": 13,
-    }
-).add_to(m)
-
-df_map = df[df["lat"].notna() & df["lon"].notna()].copy()
-
-for _, row in df_map.iterrows():
-    color = ODCINEK_COLOR.get(row.get("odcinek", ""), "#757575")
-    cena_str = f"{int(row['cena_pln']):,} PLN".replace(",", " ") \
-        if pd.notna(row.get("cena_pln")) else "cena nieznana"
-    area_str = f"{int(row['powierzchnia_m2'])} m²" \
-        if pd.notna(row.get("powierzchnia_m2")) else "—"
-    dist_str = f"~{int(row['odleglosc_m'])} m" \
-        if pd.notna(row.get("odleglosc_m")) else "—"
-    is_new = bool(row.get("nowe", False))
-    zrodlo_badge = (
-        f'<span style="background:#E3F2FD;color:#1565C0;border-radius:4px;'
-        f'padding:1px 6px;font-size:10px;font-weight:700">'
-        f'{row.get("zrodlo","")}</span>'
-        if row.get("zrodlo") else ""
-    )
-    new_badge = (
-        '<span style="background:#FF6F00;color:white;border-radius:4px;'
-        'padding:1px 6px;font-size:10px;font-weight:700;margin-left:4px">'
-        '🆕 NOWE</span>'
-        if is_new else ""
-    )
-
-    popup_html = f"""
-    <div style="font-family:sans-serif;font-size:13px;min-width:240px;max-width:280px">
-      <div style="margin-bottom:6px">{zrodlo_badge}{new_badge}
-        <span style="color:#546e7a;font-size:11px;margin-left:4px">
-          {row.get("odcinek","")}
-        </span>
-      </div>
-      <b style="font-size:14px;color:#1a2c42;line-height:1.3">
-        {str(row["tytul"])[:70]}
-      </b>
-      <div style="margin:7px 0 4px;font-size:12px;color:#37474f">
-        📍 <b>{row["miejscowosc"]}</b>
-      </div>
-      <div style="display:flex;gap:10px;margin-bottom:6px">
-        <span style="background:#e8f5e9;color:#2e7d32;border-radius:6px;
-                     padding:3px 8px;font-weight:700;font-size:12px">
-          💰 {cena_str}
-        </span>
-        <span style="background:#f3e5f5;color:#6a1b9a;border-radius:6px;
-                     padding:3px 8px;font-weight:600;font-size:12px">
-          📐 {area_str}
-        </span>
-      </div>
-      <div style="color:#78909c;font-size:11px;margin-bottom:8px">
-        🌊 od rzeki: {dist_str}
-      </div>
-      <a href="{row["url"]}" target="_blank"
-         style="display:block;text-align:center;background:#1565C0;color:white;
-                padding:6px;border-radius:6px;text-decoration:none;
-                font-weight:600;font-size:12px">
-        Zobacz ogłoszenie →
-      </a>
-    </div>
-    """
-
-    folium.CircleMarker(
-        location=[row["lat"], row["lon"]],
-        radius=10 if is_new else 9,
-        color="#FF6F00" if is_new else "white",
-        weight=3 if is_new else 2,
-        fill=True,
-        fill_color=color,
-        fill_opacity=0.92,
-        popup=folium.Popup(popup_html, max_width=290),
-        tooltip=f"{'🆕 ' if is_new else ''}<b>{row['miejscowosc']}</b> | {cena_str}",
-    ).add_to(cluster)
-
-# Legend
-legend_html = """
-<div style="position:fixed;bottom:28px;left:28px;z-index:9999;
-            background:#222;color:#eee;
-            padding:12px 16px;border-radius:10px;
-            border:1px solid #555;
-            font-family:sans-serif;font-size:12px;line-height:2">
-  <div style="font-weight:700;margin-bottom:2px">Odcinek Liwca</div>
-  <span style="color:#F4511E;font-size:16px">●</span>&nbsp;Górny bieg<br>
-  <span style="color:#4CAF50;font-size:16px">●</span>&nbsp;Środkowy bieg<br>
-  <span style="color:#64B5F6;font-size:16px">●</span>&nbsp;Dolny bieg<br>
-  <span style="color:#CE93D8;font-size:16px">●</span>&nbsp;Ujście
-</div>
-"""
-m.get_root().html.add_child(folium.Element(legend_html))
-
-st_folium(m, use_container_width=True, height=560, returned_objects=[])
-
-st.divider()
-
-# ── Tabs: listings / disappeared ──────────────────────────────────────────────
+# ── Tabs ──────────────────────────────────────────────────────────────────────
 tab_lista, tab_znikniete = st.tabs(["📋 Lista ogłoszeń", "👻 Zniknęły (możliwie sprzedane)"])
 
 with tab_lista:
@@ -413,62 +234,47 @@ with tab_lista:
         "url":             "Link",
         "powierzchnia_m2": "Pow. (m²)",
         "cena_za_m2":      "PLN/m²",
-        "odleglosc_m":     "Odl. od rzeki (m)*",
         "data_pierwszego_widzenia": "Pierwsze widzenie",
     }
 
     df_show = df[[c for c in show_cols if c in df.columns]].copy()
     df_show = df_show.rename(columns=show_cols)
 
-    # Sort BEFORE formatting (while Cena is still numeric)
-    # Order: 1) nowe first  2) odcinek A→Z  3) cena rosnąco
-    sort_keys  = []
-    sort_asc   = []
+    # Sort: nowe first → odcinek → cena (numeric, before formatting)
+    sort_keys, sort_asc = [], []
     if "🆕" in df_show.columns:
-        df_show["🆕"] = df_show["🆕"].apply(
-            lambda v: "🆕" if v is True or v == True else ""
-        )
+        df_show["🆕"] = df_show["🆕"].apply(lambda v: "🆕" if v is True or v == True else "")
         sort_keys.append("🆕");  sort_asc.append(False)
     if "Odcinek" in df_show.columns:
         sort_keys.append("Odcinek");  sort_asc.append(True)
     if "Cena (PLN)" in df_show.columns:
         sort_keys.append("Cena (PLN)");  sort_asc.append(True)
     if sort_keys:
-        df_show = df_show.sort_values(sort_keys, ascending=sort_asc,
-                                      na_position="last")
+        df_show = df_show.sort_values(sort_keys, ascending=sort_asc, na_position="last")
 
-    # Format price change: 🔻 -20 000 PLN or 🔺 +5 000 PLN
     if "Zmiana ceny" in df_show.columns:
         def _fmt_delta(v):
-            if v is None or (hasattr(v, '__float__') and pd.isna(v)):
+            try:
+                v = float(v)
+            except (TypeError, ValueError):
                 return ""
-            v = float(v)
-            if abs(v) < 1:
+            if pd.isna(v) or abs(v) < 1:
                 return ""
-            sign = "🔻" if v < 0 else "🔺"
-            return f"{sign} {int(abs(v)):,}".replace(",", " ")
+            return f"{'🔻' if v < 0 else '🔺'} {int(abs(v)):,}".replace(",", " ")
         df_show["Zmiana ceny"] = df_show["Zmiana ceny"].apply(_fmt_delta)
 
     for col in ["Cena (PLN)", "Pow. (m²)", "PLN/m²"]:
         if col in df_show.columns:
             df_show[col] = df_show[col].apply(
-                lambda v: f"{int(v):,}".replace(",", " ") if pd.notna(v) else "—"
-            )
-    if "Odl. od rzeki (m)*" in df_show.columns:
-        df_show["Odl. od rzeki (m)*"] = df_show["Odl. od rzeki (m)*"].apply(
-            lambda v: f"~{int(v):,}".replace(",", " ") if pd.notna(v) else "—"
-        )
+                lambda v: f"{int(v):,}".replace(",", " ") if pd.notna(v) else "—")
 
     st.dataframe(
         df_show,
         use_container_width=True,
-        column_config={
-            "Link": st.column_config.LinkColumn("Link", display_text="Otwórz →"),
-        },
+        column_config={"Link": st.column_config.LinkColumn("Link", display_text="Otwórz →")},
         hide_index=True,
-        height=500,
+        height=560,
     )
-    st.caption("*) Odległość od centrum miejscowości do rzeki (przybliżona).")
 
 with tab_znikniete:
     df_inactive = get_inactive_listings()
@@ -486,45 +292,30 @@ with tab_znikniete:
                 st.success(f"Usunięto {n} wpisów.")
                 st.rerun()
         st.caption(
-            f"Ogłoszenia, które **przestały pojawiać się** w wynikach wyszukiwania "
-            f"— możliwe, że zostały sprzedane lub wycofane. "
-            f"Łącznie: **{len(df_inactive)}**"
+            f"Ogłoszenia, które **przestały pojawiać się** w wynikach — "
+            f"możliwe, że sprzedane lub wycofane. Łącznie: **{len(df_inactive)}**"
         )
-        # Format for display
         df_i = df_inactive.copy()
         df_i["cena_pln"] = df_i["cena_pln"].apply(
             lambda v: f"{int(v):,} PLN".replace(",", " ") if pd.notna(v) else "—"
         )
         df_i = df_i.rename(columns={
-            "zrodlo":                    "Źródło",
-            "tytul":                     "Tytuł",
-            "miejscowosc":               "Miejscowość",
-            "odcinek":                   "Odcinek",
-            "cena_pln":                  "Ostatnia cena",
-            "url":                       "Link",
-            "data_pierwszego_widzenia":  "Pierwsze widzenie",
-            "data_ostatniego_widzenia":  "Ostatnio widziane",
+            "zrodlo": "Źródło", "tytul": "Tytuł", "miejscowosc": "Miejscowość",
+            "odcinek": "Odcinek", "cena_pln": "Ostatnia cena", "url": "Link",
+            "data_pierwszego_widzenia": "Pierwsze widzenie",
+            "data_ostatniego_widzenia": "Ostatnio widziane",
         })
-        display_cols = [
-            "Źródło", "Odcinek", "Miejscowość", "Tytuł",
-            "Ostatnia cena", "Link",
-            "Pierwsze widzenie", "Ostatnio widziane",
-        ]
         st.dataframe(
-            df_i[[c for c in display_cols if c in df_i.columns]],
+            df_i[[c for c in ["Źródło","Odcinek","Miejscowość","Tytuł","Ostatnia cena",
+                               "Link","Pierwsze widzenie","Ostatnio widziane"]
+                  if c in df_i.columns]],
             use_container_width=True,
-            column_config={
-                "Link": st.column_config.LinkColumn("Link", display_text="Otwórz →"),
-            },
+            column_config={"Link": st.column_config.LinkColumn("Link", display_text="Otwórz →")},
             hide_index=True,
             height=400,
         )
 
 # ── Export ────────────────────────────────────────────────────────────────────
 csv_out = df.drop(columns=["id"], errors="ignore").to_csv(index=False, encoding="utf-8-sig")
-st.download_button(
-    "⬇️ Eksportuj CSV",
-    data=csv_out,
-    file_name="dzialki_liwiec.csv",
-    mime="text/csv",
-)
+st.download_button("⬇️ Eksportuj CSV", data=csv_out,
+                   file_name="dzialki_liwiec.csv", mime="text/csv")
