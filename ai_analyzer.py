@@ -59,7 +59,7 @@ def _get_client():
 
 
 def _analyze_one(client, listing_id: str, tytul: str, miejscowosc: str,
-                 cena: str, powierzchnia: str, opis: str) -> dict | None:
+                 cena: str, powierzchnia: str, opis: str):
     """Call Claude for one listing. Returns parsed dict or None on error."""
     prompt = _PROMPT.format(
         tytul=tytul or "—",
@@ -140,7 +140,7 @@ def analyze_new_listings(df: pd.DataFrame,
     return cached
 
 
-def score_emoji(score: int | None) -> str:
+def score_emoji(score) -> str:
     if score is None:
         return ""
     return {1: "🔴", 2: "🟠", 3: "🟡", 4: "🟢", 5: "⭐"}.get(int(score), "")
