@@ -272,12 +272,6 @@ with tab_lista:
     df_edit = df_show[keep].copy()
     df_edit = df_edit.rename(columns={k: v for k, v in col_map.items() if k in df_edit.columns})
 
-    # DEBUG — usuń po zdiagnozowaniu
-    if "🆕" in df_edit.columns:
-        st.write("DEBUG nowe unique values:", df_edit["🆕"].unique().tolist())
-        st.write("DEBUG nowe dtype:", str(df_edit["🆕"].dtype))
-        st.write("DEBUG nowe value_counts:", df_edit["🆕"].value_counts().to_dict())
-
     # Sort: new first → odcinek → price (numeric, before string formatting)
     sort_keys, sort_asc = [], []
     if "🆕" in df_edit.columns:
@@ -309,19 +303,21 @@ with tab_lista:
                 lambda v: f"{int(v):,}".replace(",", " ") if pd.notna(v) else "—")
 
     # data_editor — ⭐ is the only editable column; id is hidden
+    _new_count = count_new_today(df)
     edited = st.data_editor(
         df_edit,
         use_container_width=True,
         hide_index=True,
         height=560,
         column_config={
-            "id":    None,   # hidden
+            "id":    None,
             "⭐":    st.column_config.CheckboxColumn("⭐", help="Oznacz jako ulubione"),
+            "🆕":    st.column_config.TextColumn("🆕", width="small"),
             "Link":  st.column_config.LinkColumn("Link", display_text="Otwórz →"),
             "Dni na rynku": st.column_config.NumberColumn("Dni na rynku", help="Ile dni widzimy to ogłoszenie"),
         },
         disabled=[c for c in df_edit.columns if c not in ("⭐", "id")],
-        key=f"tbl_{len(df_edit)}_{count_new_today(df)}",
+        key=f"tbl_{len(df_edit)}_{_new_count}",
     )
 
     # Save favourite changes
