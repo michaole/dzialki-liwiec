@@ -76,7 +76,7 @@ with c_src:
 with c_odc:
     odcinek = st.selectbox("Odcinek rzeki", options=odcinek_options())
 with c_price:
-    max_price = st.number_input("Maks. cena (PLN)", min_value=0, value=0, step=10_000,
+    max_price = st.number_input("Maks. cena (PLN)", min_value=0, value=450_000, step=10_000,
                                 help="0 = bez limitu")
 with c_area:
     min_area = st.number_input("Min. pow. (m²)", min_value=0, value=0, step=100,
