@@ -5,6 +5,7 @@ from datetime import date
 from scraper import scrape_all
 from olx_scraper import scrape_olx_all
 from gratka_scraper import scrape_gratka_all
+from adresowo_scraper import scrape_adresowo_all
 from liwiec_places import load_places, odcinek_options
 from historia import (update_and_mark, count_new_today, get_stats,
                       get_inactive_listings, clear_inactive_listings,
@@ -70,7 +71,7 @@ c_src, c_odc, c_price, c_area, c_liwiec, c_new = st.columns([2, 2, 1.6, 1.6, 1.4
 
 with c_src:
     zrodlo_filter = st.multiselect(
-        "Źródło", options=["Otodom", "OLX", "Gratka"], default=["Otodom", "OLX", "Gratka"],
+        "Źródło", options=["Otodom", "OLX", "Gratka", "Adresowo"], default=["Otodom", "OLX", "Gratka", "Adresowo"],
     )
 with c_odc:
     odcinek = st.selectbox("Odcinek rzeki", options=odcinek_options())
@@ -88,7 +89,7 @@ with c_new:
     only_new = st.checkbox("🆕 Tylko nowe", value=False)
 
 # ── Filter bar — row 2: buttons ───────────────────────────────────────────────
-_, c_btn_all, c_btn1, c_btn2, c_btn3 = st.columns([4, 2.5, 1.3, 1.3, 1.3])
+_, c_btn_all, c_btn1, c_btn2, c_btn3, c_btn4 = st.columns([3, 2.5, 1.2, 1.2, 1.2, 1.2])
 
 with c_btn_all:
     fetch_all = st.button("⚡ Wszystkie portale", use_container_width=True, type="primary")
@@ -98,11 +99,14 @@ with c_btn2:
     fetch_olx = st.button("OLX", use_container_width=True, type="secondary")
 with c_btn3:
     fetch_gratka = st.button("Gratka", use_container_width=True, type="secondary")
+with c_btn4:
+    fetch_adresowo = st.button("Adresowo", use_container_width=True, type="secondary")
 
-fetch_otodom = fetch_otodom or fetch_all
-fetch_olx    = fetch_olx    or fetch_all
-fetch_gratka = fetch_gratka or fetch_all
-fetch_btn    = fetch_otodom or fetch_olx or fetch_gratka
+fetch_otodom   = fetch_otodom   or fetch_all
+fetch_olx      = fetch_olx      or fetch_all
+fetch_gratka   = fetch_gratka   or fetch_all
+fetch_adresowo = fetch_adresowo or fetch_all
+fetch_btn      = fetch_otodom or fetch_olx or fetch_gratka or fetch_adresowo
 
 st.divider()
 
@@ -127,6 +131,10 @@ if fetch_btn:
         df_gratka = scrape_gratka_all(progress_callback=_cb)
         if not df_gratka.empty:
             frames.append(df_gratka)
+    if fetch_adresowo:
+        df_adresowo = scrape_adresowo_all(progress_callback=_cb)
+        if not df_adresowo.empty:
+            frames.append(df_adresowo)
 
     bar.progress(1.0, text="Gotowe!")
 

@@ -1,7 +1,7 @@
 """
 Standalone scraper job for GitHub Actions daily cron.
 
-Runs all three scrapers, detects new listings vs data/seen_ids.json,
+Runs all four scrapers, detects new listings vs data/seen_ids.json,
 sends email digest, and updates the seen_ids file.
 
 Usage:
@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT))
 from scraper import scrape_all
 from olx_scraper import scrape_olx_all
 from gratka_scraper import scrape_gratka_all
+from adresowo_scraper import scrape_adresowo_all
 from notifier import send_new_listings, email_configured
 
 SEEN_IDS_FILE = ROOT / "data" / "seen_ids.json"
@@ -64,6 +65,12 @@ def main():
     if not df_gratka.empty:
         frames.append(df_gratka)
         print(f"  Gratka: {len(df_gratka)} ogłoszeń")
+
+    print("▶ Scraping Adresowo…")
+    df_adresowo = scrape_adresowo_all()
+    if not df_adresowo.empty:
+        frames.append(df_adresowo)
+        print(f"  Adresowo: {len(df_adresowo)} ogłoszeń")
 
     if not frames:
         print("✗ Brak ogłoszeń – przerywam.")
