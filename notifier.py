@@ -4,7 +4,8 @@ Email notifications for new listings.
 Requires env vars (or Streamlit secrets):
   GMAIL_USER         — your Gmail address
   GMAIL_APP_PASSWORD — Gmail App Password (not your main password)
-  NOTIFY_EMAIL       — recipient address (can be same as GMAIL_USER)
+  NOTIFY_EMAIL       — recipient address(es), comma-separated for multiple
+                       e.g. "jan@gmail.com,anna@gmail.com"
 """
 import os
 import smtplib
@@ -94,16 +95,19 @@ def send_new_listings(new_df: pd.DataFrame) -> bool:
     if not all(cfg.values()):
         return False
 
+    # Support comma-separated list of recipients
+    recipients = [a.strip() for a in cfg["to"].split(",") if a.strip()]
+
     msg = MIMEMultipart("alternative")
     msg["Subject"] = f"🌊 {len(new_df)} nowych działek nad Liwcem"
     msg["From"]    = cfg["user"]
-    msg["To"]      = cfg["to"]
+    msg["To"]      = ", ".join(recipients)
     msg.attach(MIMEText(_build_html(new_df), "html", "utf-8"))
 
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
             smtp.login(cfg["user"], cfg["password"])
-            smtp.sendmail(cfg["user"], cfg["to"], msg.as_string())
+            smtp.sendmail(cfg["user"], recipients, msg.as_string())
         return True
     except Exception as e:
         print(f"Email error: {e}")
