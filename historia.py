@@ -260,6 +260,42 @@ def clear_inactive_listings() -> int:
     return n
 
 
+def get_price_drops() -> pd.DataFrame:
+    """
+    Return active listings whose price dropped since first seen.
+    Columns: id, zrodlo, tytul, miejscowosc, odcinek, url,
+             cena_pierwsza, cena_ostatnia, delta_pln, delta_pct
+    """
+    _ensure_schema()
+    with _db() as conn:
+        rows = conn.execute("""
+            SELECT
+                o.id, o.zrodlo, o.tytul, o.miejscowosc, o.odcinek, o.url,
+                h_first.cena_pln  AS cena_pierwsza,
+                h_last.cena_pln   AS cena_ostatnia,
+                (h_last.cena_pln - h_first.cena_pln) AS delta_pln
+            FROM ogloszenia o
+            JOIN historia_cen h_first ON o.id = h_first.id
+            JOIN historia_cen h_last  ON o.id = h_last.id
+            JOIN (SELECT id, MIN(data) d FROM historia_cen GROUP BY id)
+                 mn ON mn.id = h_first.id AND mn.d = h_first.data
+            JOIN (SELECT id, MAX(data) d FROM historia_cen GROUP BY id)
+                 mx ON mx.id = h_last.id  AND mx.d = h_last.data
+            WHERE h_last.cena_pln < h_first.cena_pln
+              AND o.aktywne = 1
+            ORDER BY delta_pln ASC
+        """).fetchall()
+    if not rows:
+        return pd.DataFrame()
+    df = pd.DataFrame([dict(r) for r in rows])
+    df["delta_pct"] = (
+        (df["delta_pln"] / df["cena_pierwsza"] * 100)
+        .round(1)
+        .where(df["cena_pierwsza"] > 0)
+    )
+    return df
+
+
 def get_inactive_listings() -> pd.DataFrame:
     """Return listings that disappeared from search results (possibly sold)."""
     _ensure_schema()

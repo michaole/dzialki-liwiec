@@ -9,7 +9,7 @@ from adresowo_scraper import scrape_adresowo_all
 from liwiec_places import load_places, odcinek_options
 from historia import (update_and_mark, count_new_today, get_stats,
                       get_inactive_listings, clear_inactive_listings,
-                      get_favorites, set_favorites)
+                      get_favorites, set_favorites, get_price_drops)
 from notifier import send_new_listings, email_configured
 
 # ── Page config ───────────────────────────────────────────────────────────────
@@ -237,7 +237,7 @@ if send_email_btn:
 st.divider()
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
-tab_lista, tab_znikniete = st.tabs(["📋 Lista ogłoszeń", "👻 Zniknęły (możliwie sprzedane)"])
+tab_lista, tab_obnizki, tab_znikniete = st.tabs(["📋 Lista ogłoszeń", "🔻 Obniżki cen", "👻 Zniknęły (możliwie sprzedane)"])
 
 with tab_lista:
     today = date.today()
@@ -308,6 +308,20 @@ with tab_lista:
             return f"{'🔻' if v < 0 else '🔺'} {int(abs(v)):,}".replace(",", " ")
         df_edit["Zmiana ceny"] = df_edit["Zmiana ceny"].apply(_fmt_delta)
 
+    # Color-code days on market: 🟢 <7, 🟡 7-30, 🔴 >30
+    if "Dni na rynku" in df_edit.columns:
+        def _fmt_days(v):
+            try:
+                d = int(v)
+            except (TypeError, ValueError):
+                return "—"
+            if d < 7:
+                return f"🟢 {d}"
+            if d <= 30:
+                return f"🟡 {d}"
+            return f"🔴 {d}"
+        df_edit["Dni na rynku"] = df_edit["Dni na rynku"].apply(_fmt_days)
+
     # Format numbers
     for col in ["Cena (PLN)", "Pow. (m²)", "PLN/m²"]:
         if col in df_edit.columns:
@@ -326,7 +340,7 @@ with tab_lista:
             "⭐":    st.column_config.CheckboxColumn("⭐", help="Oznacz jako ulubione"),
             "🆕":    st.column_config.TextColumn("🆕", width="small"),
             "Link":  st.column_config.LinkColumn("Link", display_text="Otwórz →"),
-            "Dni na rynku": st.column_config.NumberColumn("Dni na rynku", help="Ile dni widzimy to ogłoszenie"),
+            "Dni na rynku": st.column_config.TextColumn("Dni na rynku", help="🟢 <7 dni  🟡 7–30 dni  🔴 >30 dni"),
         },
         disabled=[c for c in df_edit.columns if c not in ("⭐", "id")],
         key=f"tbl_{len(df_edit)}_{_new_count}",
@@ -337,6 +351,39 @@ with tab_lista:
     if new_favs != favorites:
         set_favorites(new_favs)
         st.toast("⭐ Ulubione zapisane!")
+
+with tab_obnizki:
+    df_drops = get_price_drops()
+    if df_drops.empty:
+        st.info(
+            "Brak zarejestrowanych obniżek cen. "
+            "Pojawiają się tu ogłoszenia, których cena spadła względem "
+            "pierwszego zaobserwowanego poziomu."
+        )
+    else:
+        st.caption(f"Ogłoszenia z obniżoną ceną (aktywne) — łącznie: **{len(df_drops)}**")
+        df_d = df_drops.copy()
+        df_d["Pierwsza cena"] = df_d["cena_pierwsza"].apply(
+            lambda v: f"{int(v):,} PLN".replace(",", " ") if pd.notna(v) else "—")
+        df_d["Aktualna cena"] = df_d["cena_ostatnia"].apply(
+            lambda v: f"{int(v):,} PLN".replace(",", " ") if pd.notna(v) else "—")
+        df_d["Obniżka"] = df_d.apply(
+            lambda r: (
+                f"🔻 {int(abs(r['delta_pln'])):,} PLN ({abs(r['delta_pct']):.1f}%)".replace(",", " ")
+                if pd.notna(r["delta_pln"]) else "—"
+            ), axis=1)
+        df_d = df_d.rename(columns={
+            "zrodlo": "Źródło", "tytul": "Tytuł",
+            "miejscowosc": "Miejscowość", "odcinek": "Odcinek", "url": "Link",
+        })
+        st.dataframe(
+            df_d[["Źródło", "Odcinek", "Miejscowość", "Tytuł",
+                  "Pierwsza cena", "Aktualna cena", "Obniżka", "Link"]],
+            use_container_width=True,
+            column_config={"Link": st.column_config.LinkColumn("Link", display_text="Otwórz →")},
+            hide_index=True,
+            height=400,
+        )
 
 with tab_znikniete:
     df_inactive = get_inactive_listings()
