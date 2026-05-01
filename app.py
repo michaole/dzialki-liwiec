@@ -145,13 +145,17 @@ if fetch_btn:
         df_raw = df_raw.drop_duplicates(subset=["tytul", "miejscowosc"], keep="first")
         df_raw = update_and_mark(df_raw)
         st.session_state.raw_df = df_raw
-        total     = len(df_raw)
-        on_river  = int(df_raw["na_liwcu"].sum())
-        new_today = count_new_today(df_raw)
-        sources   = ", ".join(df_raw["zrodlo"].unique()) if "zrodlo" in df_raw.columns else ""
+        total    = len(df_raw)
+        sources  = ", ".join(df_raw["zrodlo"].unique()) if "zrodlo" in df_raw.columns else ""
+        # Licz "nad Liwcem" i "nowych" z tego samego przefiltrowanego zbioru co tabelka
+        df_liwiec = df_raw[df_raw["na_liwcu"] == True]
+        if max_price > 0:
+            df_liwiec = df_liwiec[df_liwiec["cena_pln"].isna() | (df_liwiec["cena_pln"] <= max_price)]
+        on_river  = len(df_liwiec)
+        new_today = count_new_today(df_liwiec)
         st.success(
             f"Pobrano **{total}** ogłoszeń ({sources}) — "
-            f"**{on_river}** z miejscowości nad Liwcem — "
+            f"**{on_river}** z miejscowości nad Liwcem (do {max_price:,} PLN)".replace(",", " ") + " — "
             f"🆕 **{new_today}** nowych od ostatniego scrapowania."
         )
 
