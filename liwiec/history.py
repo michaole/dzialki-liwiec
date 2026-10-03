@@ -1,7 +1,7 @@
 """
 Persistent listing history backed by SQLite.
 
-DB file: historia_ogloszen.db  (excluded from git via .gitignore)
+DB file: historia_ogloszen.db in the repo root (excluded from git via .gitignore)
 
 Tables
 ------
@@ -13,14 +13,14 @@ New features vs CSV:
   • Flags listings that disappeared from search (possibly sold)
   • Tracks first & last seen dates per listing
 """
-import os
 import sqlite3
 from contextlib import contextmanager
 from datetime import date
+from pathlib import Path
 
 import pandas as pd
 
-_DB_PATH = os.path.join(os.path.dirname(__file__), "historia_ogloszen.db")
+_DB_PATH = Path(__file__).resolve().parent.parent / "historia_ogloszen.db"
 
 _DDL = """
 CREATE TABLE IF NOT EXISTS ogloszenia (
@@ -49,15 +49,6 @@ CREATE TABLE IF NOT EXISTS ulubione (
     id           TEXT PRIMARY KEY,
     data_dodania TEXT NOT NULL
 );
-
-CREATE TABLE IF NOT EXISTS ai_analiza (
-    id            TEXT PRIMARY KEY,
-    score         INTEGER,
-    pozytywne     TEXT,
-    flagi         TEXT,
-    podsumowanie  TEXT,
-    data_analizy  TEXT NOT NULL
-);
 """
 
 
@@ -79,14 +70,16 @@ def _ensure_schema():
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
-def update_and_mark(df: pd.DataFrame) -> pd.DataFrame:
+def update_and_mark(df: pd.DataFrame, scraped_sources: set[str]) -> pd.DataFrame:
     """
     Upsert all scraped listings into the DB, then annotate df with:
       - nowe          (bool)  : first seen today
       - zmiana_ceny   (float) : price delta vs previous scrape (None = no change)
       - data_pierwszego_widzenia (str)
 
-    Also marks listings absent from this scrape as inactive (aktywne=0).
+    Also marks listings from `scraped_sources` that are absent from this
+    scrape as inactive (aktywne=0). Listings from portals that were not
+    scraped this time are left untouched.
     Returns annotated copy of df.
     """
     _ensure_schema()
@@ -178,9 +171,10 @@ def update_and_mark(df: pd.DataFrame) -> pd.DataFrame:
                 prices_to_log,
             )
 
-        # ── Mark absent listings as inactive ────────────────────────────
+        # ── Mark absent listings (of the portals just scraped) inactive ──
         absent_ids = [
-            (eid,) for eid in existing if eid not in current_ids
+            (eid,) for eid, rec in existing.items()
+            if eid not in current_ids and rec["zrodlo"] in scraped_sources
         ]
         if absent_ids:
             conn.executemany(
@@ -333,43 +327,3 @@ def set_favorites(ids: set) -> None:
             "INSERT OR IGNORE INTO ulubione (id, data_dodania) VALUES (?,?)",
             [(lid, today) for lid in ids],
         )
-
-
-# ── AI analysis ───────────────────────────────────────────────────────────────
-
-def save_ai_result(listing_id: str, score: int,
-                   pozytywne: list, flagi: list, podsumowanie: str) -> None:
-    """Persist AI analysis result for one listing."""
-    import json
-    _ensure_schema()
-    today = date.today().isoformat()
-    with _db() as conn:
-        conn.execute("""
-            INSERT OR REPLACE INTO ai_analiza
-                (id, score, pozytywne, flagi, podsumowanie, data_analizy)
-            VALUES (?,?,?,?,?,?)
-        """, (
-            listing_id, score,
-            json.dumps(pozytywne, ensure_ascii=False),
-            json.dumps(flagi,     ensure_ascii=False),
-            podsumowanie, today,
-        ))
-
-
-def get_ai_results() -> dict:
-    """Return {id: {score, pozytywne, flagi, podsumowanie}} from cache."""
-    import json
-    _ensure_schema()
-    with _db() as conn:
-        rows = conn.execute(
-            "SELECT id, score, pozytywne, flagi, podsumowanie FROM ai_analiza"
-        ).fetchall()
-    out = {}
-    for r in rows:
-        out[r["id"]] = {
-            "score":        r["score"],
-            "pozytywne":    json.loads(r["pozytywne"] or "[]"),
-            "flagi":        json.loads(r["flagi"]     or "[]"),
-            "podsumowanie": r["podsumowanie"] or "",
-        }
-    return out

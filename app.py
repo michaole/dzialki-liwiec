@@ -2,15 +2,15 @@ import streamlit as st
 import pandas as pd
 from datetime import date
 
-from scraper import scrape_all
-from olx_scraper import scrape_olx_all
-from gratka_scraper import scrape_gratka_all
-from adresowo_scraper import scrape_adresowo_all
-from liwiec_places import load_places, odcinek_options
-from historia import (update_and_mark, count_new_today, get_stats,
-                      get_inactive_listings, clear_inactive_listings,
-                      get_favorites, set_favorites, get_price_drops)
-from notifier import send_new_listings, email_configured
+from liwiec.history import (update_and_mark, count_new_today, get_stats,
+                            get_inactive_listings, clear_inactive_listings,
+                            get_favorites, set_favorites, get_price_drops)
+from liwiec.notifier import send_new_listings, email_configured
+from liwiec.pipeline import scrape_portals
+from liwiec.places import odcinek_options, place_names
+from liwiec.sources import SCRAPERS
+
+PORTALS = list(SCRAPERS)
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Działki nad Liwcem", page_icon="🌊", layout="wide")
@@ -51,17 +51,14 @@ hr { border-color: #e0eaf4 !important; margin: 0.6rem 0 !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Load static data ──────────────────────────────────────────────────────────
-places_df = load_places()
-
 if "raw_df" not in st.session_state:
     st.session_state.raw_df = None
 
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("## 🌊 Działki nad rzeką Liwiec")
 st.caption(
-    "Ogłoszenia z Otodom, OLX i Gratka filtrowane według miejscowości nad Liwcem. "
-    f"Baza zawiera **{len(places_df)}** miejscowości."
+    f"Ogłoszenia z {', '.join(PORTALS)} filtrowane według miejscowości nad Liwcem. "
+    f"Baza zawiera **{len(place_names())}** miejscowości."
 )
 
 st.divider()
@@ -70,9 +67,7 @@ st.divider()
 c_src, c_odc, c_price, c_area, c_liwiec, c_new = st.columns([2, 2, 1.6, 1.6, 1.4, 1.4])
 
 with c_src:
-    zrodlo_filter = st.multiselect(
-        "Źródło", options=["Otodom", "OLX", "Gratka", "Adresowo"], default=["Otodom", "OLX", "Gratka", "Adresowo"],
-    )
+    zrodlo_filter = st.multiselect("Źródło", options=PORTALS, default=PORTALS)
 with c_odc:
     odcinek = st.selectbox("Odcinek rzeki", options=odcinek_options())
 with c_price:
@@ -89,73 +84,45 @@ with c_new:
     only_new = st.checkbox("🆕 Tylko nowe", value=False)
 
 # ── Filter bar — row 2: buttons ───────────────────────────────────────────────
-_, c_btn_all, c_btn1, c_btn2, c_btn3, c_btn4 = st.columns([3, 2.5, 1.2, 1.2, 1.2, 1.2])
+_, c_btn_all, *c_btns = st.columns([3, 2.5] + [1.2] * len(PORTALS))
 
 with c_btn_all:
-    fetch_all = st.button("⚡ Wszystkie portale", use_container_width=True, type="primary")
-with c_btn1:
-    fetch_otodom = st.button("Otodom", use_container_width=True, type="secondary")
-with c_btn2:
-    fetch_olx = st.button("OLX", use_container_width=True, type="secondary")
-with c_btn3:
-    fetch_gratka = st.button("Gratka", use_container_width=True, type="secondary")
-with c_btn4:
-    fetch_adresowo = st.button("Adresowo", use_container_width=True, type="secondary")
-
-fetch_otodom   = fetch_otodom   or fetch_all
-fetch_olx      = fetch_olx      or fetch_all
-fetch_gratka   = fetch_gratka   or fetch_all
-fetch_adresowo = fetch_adresowo or fetch_all
-fetch_btn      = fetch_otodom or fetch_olx or fetch_gratka or fetch_adresowo
+    fetch_all = st.button("⚡ Wszystkie portale", width="stretch", type="primary")
+portals_to_fetch = [
+    name for name, col in zip(PORTALS, c_btns)
+    if col.button(name, width="stretch", type="secondary")
+]
+if fetch_all:
+    portals_to_fetch = PORTALS
 
 st.divider()
 
 # ── Scraping ──────────────────────────────────────────────────────────────────
-if fetch_btn:
+if portals_to_fetch:
     bar = st.progress(0.0, text="Inicjalizacja…")
-
-    def _cb(msg, frac):
-        bar.progress(min(frac, 1.0), text=msg)
-
-    frames = []
-    if fetch_otodom:
-        df_oto = scrape_all(progress_callback=_cb)
-        if not df_oto.empty:
-            df_oto["zrodlo"] = "Otodom"
-            frames.append(df_oto)
-    if fetch_olx:
-        df_olx = scrape_olx_all(progress_callback=_cb)
-        if not df_olx.empty:
-            frames.append(df_olx)
-    if fetch_gratka:
-        df_gratka = scrape_gratka_all(progress_callback=_cb)
-        if not df_gratka.empty:
-            frames.append(df_gratka)
-    if fetch_adresowo:
-        df_adresowo = scrape_adresowo_all(progress_callback=_cb)
-        if not df_adresowo.empty:
-            frames.append(df_adresowo)
-
+    df_raw = scrape_portals(
+        portals_to_fetch,
+        progress_callback=lambda msg, frac: bar.progress(min(frac, 1.0), text=msg),
+    )
     bar.progress(1.0, text="Gotowe!")
 
-    if not frames:
+    if df_raw.empty:
         st.error("Nie pobrano żadnych ogłoszeń. Spróbuj za chwilę.")
     else:
-        df_raw = pd.concat(frames, ignore_index=True)
-        df_raw = df_raw.drop_duplicates(subset=["tytul", "miejscowosc"], keep="first")
-        df_raw = update_and_mark(df_raw)
+        df_raw = update_and_mark(df_raw, scraped_sources=set(portals_to_fetch))
         st.session_state.raw_df = df_raw
         total    = len(df_raw)
-        sources  = ", ".join(df_raw["zrodlo"].unique()) if "zrodlo" in df_raw.columns else ""
+        sources  = ", ".join(df_raw["zrodlo"].unique())
         # Licz "nad Liwcem" i "nowych" z tego samego przefiltrowanego zbioru co tabelka
         df_liwiec = df_raw[df_raw["na_liwcu"] == True]
         if max_price > 0:
             df_liwiec = df_liwiec[df_liwiec["cena_pln"].isna() | (df_liwiec["cena_pln"] <= max_price)]
         on_river  = len(df_liwiec)
         new_today = count_new_today(df_liwiec)
+        max_price_txt = f"{max_price:,}".replace(",", " ")
         st.success(
             f"Pobrano **{total}** ogłoszeń ({sources}) — "
-            f"**{on_river}** z miejscowości nad Liwcem (do {max_price:,} PLN)".replace(",", " ") + " — "
+            f"**{on_river}** z miejscowości nad Liwcem (do {max_price_txt} PLN) — "
             f"🆕 **{new_today}** nowych od ostatniego scrapowania."
         )
 
@@ -163,12 +130,12 @@ if fetch_btn:
 df_raw = st.session_state.raw_df
 
 if df_raw is None:
-    st.info("👆 Kliknij **⚡ Wszystkie portale** aby pobrać z Otodom, OLX i Gratka naraz — albo wybierz konkretny portal po prawej.")
+    st.info("👆 Kliknij **⚡ Wszystkie portale** aby pobrać ze wszystkich portali naraz — albo wybierz konkretny portal po prawej.")
     st.stop()
 
 # ── Apply filters ─────────────────────────────────────────────────────────────
 df = df_raw.copy()
-if zrodlo_filter and "zrodlo" in df.columns:
+if zrodlo_filter:
     df = df[df["zrodlo"].isin(zrodlo_filter)]
 if only_liwiec:
     df = df[df["na_liwcu"] == True]
@@ -218,7 +185,7 @@ _a1, _a2 = st.columns([2, 8])
 with _a1:
     send_email_btn = st.button(
         "📧 Wyślij digest",
-        use_container_width=True,
+        width="stretch",
         disabled=not email_configured(),
         help="Wysyła email z nowymi ogłoszeniami" if email_configured()
              else "Skonfiguruj GMAIL_USER, GMAIL_APP_PASSWORD i NOTIFY_EMAIL w Secrets",
@@ -226,11 +193,11 @@ with _a1:
 
 # ── Email digest trigger ──────────────────────────────────────────────────────
 if send_email_btn:
-    new_df = df[df.get("nowe", pd.Series(False, index=df.index)) == True] \
-             if "nowe" in df.columns else df
-    ok = send_new_listings(new_df if not new_df.empty else df)
-    if ok:
-        st.success("📧 Email wysłany!")
+    new_df = df[df["nowe"] == True]
+    if new_df.empty:
+        st.info("Brak nowych ogłoszeń w bieżącym widoku — email nie został wysłany.")
+    elif send_new_listings(new_df):
+        st.success(f"📧 Email wysłany ({len(new_df)} nowych)!")
     else:
         st.error("Błąd wysyłki. Sprawdź konfigurację SMTP w Secrets.")
 
@@ -332,7 +299,7 @@ with tab_lista:
     _new_count = count_new_today(df)
     edited = st.data_editor(
         df_edit,
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         height=560,
         column_config={
@@ -379,7 +346,7 @@ with tab_obnizki:
         st.dataframe(
             df_d[["Źródło", "Odcinek", "Miejscowość", "Tytuł",
                   "Pierwsza cena", "Aktualna cena", "Obniżka", "Link"]],
-            use_container_width=True,
+            width="stretch",
             column_config={"Link": st.column_config.LinkColumn("Link", display_text="Otwórz →")},
             hide_index=True,
             height=400,
@@ -396,7 +363,7 @@ with tab_znikniete:
     else:
         _col_info, _col_btn = st.columns([6, 1])
         with _col_btn:
-            if st.button("🗑️ Wyczyść listę", type="secondary", use_container_width=True):
+            if st.button("🗑️ Wyczyść listę", type="secondary", width="stretch"):
                 n = clear_inactive_listings()
                 st.success(f"Usunięto {n} wpisów.")
                 st.rerun()
@@ -418,7 +385,7 @@ with tab_znikniete:
             df_i[[c for c in ["Źródło","Odcinek","Miejscowość","Tytuł","Ostatnia cena",
                                "Link","Pierwsze widzenie","Ostatnio widziane"]
                   if c in df_i.columns]],
-            use_container_width=True,
+            width="stretch",
             column_config={"Link": st.column_config.LinkColumn("Link", display_text="Otwórz →")},
             hide_index=True,
             height=400,
