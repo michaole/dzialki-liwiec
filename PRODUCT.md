@@ -43,6 +43,5 @@ sort.
 - The places list is curated by hand and may change.
 - Favourites are personal to the owner's browser.
 
-## Open decisions
-
-- Whether to retire the Streamlit app once the static site is live.
+The earlier Streamlit app was retired once the static site went live
+(October 2026); the site is the only UI.

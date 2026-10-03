@@ -9,8 +9,6 @@ venv/
 *.egg-info/
 dist/
 build/
-historia_ogloszen.csv
-historia_ogloszen.db
 
 # local design tooling (impeccable)
 .impeccable/review/

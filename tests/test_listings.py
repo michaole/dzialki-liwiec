@@ -1,6 +1,6 @@
 import pandas as pd
 
-from liwiec import history, pipeline
+from liwiec import pipeline
 from liwiec.listings import COLUMNS, to_dataframe, to_float
 from liwiec.places import match_place
 
@@ -62,30 +62,6 @@ def test_pipeline_merges_and_dedupes_cross_posted_listings(monkeypatch):
 
     assert sorted(df["id"]) == ["a1", "b2"]
     assert pipeline.scrape_portals(["C"]).empty
-
-
-def test_update_and_mark_only_deactivates_scraped_portals(tmp_path, monkeypatch):
-    monkeypatch.setattr(history, "_DB_PATH", tmp_path / "test.db")
-
-    def listing(id_, zrodlo, cena):
-        return {"id": id_, "zrodlo": zrodlo, "tytul": id_, "miejscowosc": "Loretto",
-                "odcinek": "Dolny bieg", "na_liwcu": True, "url": "", "cena_pln": cena,
-                "powierzchnia_m2": 1000.0}
-
-    history.update_and_mark(pd.DataFrame([listing("o1", "Otodom", 100.0),
-                                          listing("x1", "OLX", 100.0)]),
-                            scraped_sources={"Otodom", "OLX"})
-
-    # Re-scrape only OLX, with a price drop: the Otodom listing must stay active
-    out = history.update_and_mark(pd.DataFrame([listing("x1", "OLX", 90.0)]),
-                                  scraped_sources={"OLX"})
-
-    assert out.loc[0, "zmiana_ceny"] == -10.0
-    assert history.get_inactive_listings().empty
-
-    # Re-scrape OLX without x1: now it is gone
-    history.update_and_mark(pd.DataFrame([listing("x2", "OLX", 50.0)]), scraped_sources={"OLX"})
-    assert history.get_inactive_listings()["id"].tolist() == ["x1"]
 
 
 def test_store_tracks_first_seen_price_history_and_gone():

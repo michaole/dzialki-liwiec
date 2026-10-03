@@ -1,7 +1,7 @@
 """
 Email notifications for new listings.
 
-Requires env vars (or Streamlit secrets):
+Requires env vars:
   GMAIL_USER         — your Gmail address
   GMAIL_APP_PASSWORD — Gmail App Password (not your main password)
   NOTIFY_EMAIL       — recipient address(es), comma-separated for multiple
@@ -17,20 +17,11 @@ import pandas as pd
 
 
 def _get_cfg():
-    cfg = {
+    return {
         "user":     os.environ.get("GMAIL_USER", ""),
         "password": os.environ.get("GMAIL_APP_PASSWORD", ""),
         "to":       os.environ.get("NOTIFY_EMAIL", ""),
     }
-    if not all(cfg.values()):
-        try:
-            import streamlit as st
-            cfg["user"]     = cfg["user"]     or st.secrets.get("GMAIL_USER", "")
-            cfg["password"] = cfg["password"] or st.secrets.get("GMAIL_APP_PASSWORD", "")
-            cfg["to"]       = cfg["to"]       or st.secrets.get("NOTIFY_EMAIL", "")
-        except Exception:
-            pass
-    return cfg
 
 
 def _build_html(new_df: pd.DataFrame) -> str:
