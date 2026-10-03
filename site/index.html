@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Działki nad Liwcem</title>
+  <meta name="description" content="Działki na sprzedaż w miejscowościach nad dolnym Liwcem — Otodom, OLX, Gratka, Adresowo, aktualizowane co noc.">
+  <link rel="preload" href="fonts/barlow-condensed-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='6' width='26' height='20' rx='2' transform='rotate(-6 16 16)' fill='%23C8F000'/%3E%3Cpath d='M9 19.5c3-4 5 2 8-2s5 0 6-1' stroke='%2314171A' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="bar__title">
+      <h1>Działki nad Liwcem</h1>
+      <p class="bar__meta" id="meta">Ładowanie danych…</p>
+    </div>
+    <nav class="bar__since" id="since" aria-label="Zmiany od ostatniej wizyty" hidden>
+      <span class="bar__since-label" id="since-label">Od ostatniej wizyty</span>
+      <button type="button" class="tag tag--new" data-quick="new"><span id="count-new">0</span>&nbsp;nowe</button>
+      <button type="button" class="tag tag--cheaper" data-quick="cheaper"><span id="count-cheaper">0</span>&nbsp;tańsze</button>
+      <button type="button" class="tag tag--gone" data-quick="gone"><span id="count-gone">0</span>&nbsp;zniknęło</button>
+    </nav>
+  </header>
+
+  <form class="filters" id="filters" role="search" aria-label="Filtry">
+    <label class="field field--search">
+      <span class="field__label">Szukaj</span>
+      <input type="search" name="q" placeholder="miejscowość, tytuł, notatka…" autocomplete="off">
+    </label>
+    <div class="field field--sources" role="group" aria-labelledby="sources-label">
+      <span class="field__label" id="sources-label">Portal</span>
+      <div class="chips" id="sources"></div>
+    </div>
+    <label class="field">
+      <span class="field__label">Odcinek</span>
+      <select name="odcinek" id="odcinek"><option value="">Wszystkie</option></select>
+    </label>
+    <label class="field field--num">
+      <span class="field__label">Cena do</span>
+      <span class="input-unit"><input type="number" name="maxPrice" inputmode="numeric" min="0" step="10000" placeholder="bez limitu"><span>zł</span></span>
+    </label>
+    <label class="field field--num">
+      <span class="field__label">Pow. od</span>
+      <span class="input-unit"><input type="number" name="minArea" inputmode="numeric" min="0" step="100" placeholder="0"><span>m²</span></span>
+    </label>
+    <div class="field field--toggles">
+      <span class="field__label">Pokaż</span>
+      <div class="toggles">
+        <label class="toggle"><input type="checkbox" name="onlyStarred"><span>tylko ulubione</span></label>
+        <label class="toggle"><input type="checkbox" name="showGone"><span>zniknięte</span></label>
+      </div>
+    </div>
+    <button type="reset" class="btn-quiet" id="reset">Wyczyść</button>
+  </form>
+
+  <main class="list">
+    <p class="list__summary" id="summary" aria-live="polite"></p>
+    <div class="table-wrap">
+      <table class="plots" id="plots">
+        <caption class="visually-hidden">Działki na sprzedaż nad Liwcem</caption>
+        <colgroup>
+          <col class="w-star"><col class="w-state"><col class="w-place"><col class="w-title">
+          <col class="w-price"><col class="w-ppm"><col class="w-area"><col class="w-age"><col class="w-note">
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col" class="c-star"><span class="visually-hidden">Ulubione</span></th>
+            <th scope="col" class="c-state"><button type="button" data-sort="state">Zmiana</button></th>
+            <th scope="col" class="c-place"><button type="button" data-sort="place">Miejscowość</button></th>
+            <th scope="col" class="c-title">Ogłoszenie</th>
+            <th scope="col" class="c-num c-price"><button type="button" data-sort="price">Cena</button></th>
+            <th scope="col" class="c-num"><button type="button" data-sort="ppm">zł/m²</button></th>
+            <th scope="col" class="c-num"><button type="button" data-sort="area">Pow.</button></th>
+            <th scope="col" class="c-age"><button type="button" data-sort="age">Na rynku</button></th>
+            <th scope="col" class="c-note">Notatka</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="empty" hidden>
+      <p>Żadna działka nie pasuje do filtrów.</p>
+      <button type="button" class="btn-quiet" id="empty-reset">Wyczyść filtry</button>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <p>Dane: Otodom, OLX, Gratka, Adresowo — pobierane co noc dla miejscowości z listy nad Liwcem. Ulubione i notatki zapisują się w tej przeglądarce.</p>
+  </footer>
+
+  <template id="icon-star"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.6L12 16.5l-5.1 2.7 1-5.6-4.1-4 5.7-.8z"/></svg></template>
+  <template id="icon-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></template>
+  <template id="icon-out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5"/><path d="M19 5l-8 8"/><path d="M17 14v5H5V7h5"/></svg></template>
+</body>
+</html>

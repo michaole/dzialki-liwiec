@@ -86,3 +86,28 @@ def test_update_and_mark_only_deactivates_scraped_portals(tmp_path, monkeypatch)
     # Re-scrape OLX without x1: now it is gone
     history.update_and_mark(pd.DataFrame([listing("x2", "OLX", 50.0)]), scraped_sources={"OLX"})
     assert history.get_inactive_listings()["id"].tolist() == ["x1"]
+
+
+def test_store_tracks_first_seen_price_history_and_gone():
+    from liwiec import store
+
+    def df(*rows):
+        return pd.DataFrame([{"id": i, "zrodlo": z, "tytul": i, "miejscowosc": "Loretto",
+                              "odcinek": "Dolny bieg", "url": "", "cena_pln": c,
+                              "powierzchnia_m2": 1000.0, "cena_za_m2": None,
+                              "data_dodania": "2026-09-01"} for i, z, c in rows])
+
+    h = store.update({}, df(("a", "OLX", 100.0), ("k", "Otodom", 50.0)),
+                     {"OLX", "Otodom"}, today="2026-10-01", known_ids={"k"})
+    assert h["a"]["first_seen"] == "2026-10-01"
+    assert h["k"]["first_seen"] == "2026-09-01"          # known to the email job already
+
+    # Next day: OLX blocked (no rows), Otodom price drop
+    store.update(h, df(("k", "Otodom", 45.0)), {"Otodom"}, today="2026-10-02")
+    assert h["a"]["active"]                              # not scraped → untouched
+    assert h["k"]["prices"] == [["2026-10-01", 50.0], ["2026-10-02", 45.0]]
+
+    # OLX back without "a": now it is gone
+    store.update(h, df(("b", "OLX", 70.0), ("k", "Otodom", 45.0)), {"OLX", "Otodom"}, today="2026-10-03")
+    assert not h["a"]["active"] and h["b"]["active"]
+    assert h["k"]["prices"][-1] == ["2026-10-02", 45.0]  # unchanged price not repeated

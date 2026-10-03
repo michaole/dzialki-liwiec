@@ -2,7 +2,8 @@
 Standalone scraper job for GitHub Actions daily cron.
 
 Runs all portal scrapers, detects new listings vs data/seen_ids.json,
-sends email digest, and updates the seen_ids file.
+sends email digest, and updates the seen_ids file and the listing history
+(data/listings.json) that the static site is built from.
 
 Usage:
     python scraper_job.py
@@ -13,6 +14,7 @@ Required env vars:
 import json
 from pathlib import Path
 
+from liwiec import store
 from liwiec.notifier import email_configured, send_new_listings
 from liwiec.pipeline import scrape_portals
 
@@ -37,6 +39,8 @@ def main():
         print("✗ Brak ogłoszeń – przerywam.")
         return
 
+    # Portals that returned nothing (blocked, down) keep their listings as they were
+    scraped_sources = set(df["zrodlo"])
     df = df[df["na_liwcu"] == True]
     print(f"▶ Łącznie nad Liwcem: {len(df)} ogłoszeń")
 
@@ -55,6 +59,11 @@ def main():
 
     _save_seen(seen | current_ids)
     print("✓ seen_ids.json zaktualizowany.")
+
+    history = store.update(store.load(), df, scraped_sources, known_ids=seen)
+    store.save(history)
+    active = sum(r["active"] for r in history.values())
+    print(f"✓ listings.json zaktualizowany ({active} aktywnych, {len(history) - active} zniknęło).")
 
 
 if __name__ == "__main__":

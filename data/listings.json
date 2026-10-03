@@ -1,0 +1,929 @@
+{
+ "generated": "2026-10-03T09:31:37+00:00",
+ "listings": [
+  {
+   "id": "adresowo_4260960",
+   "first_seen": "2026-10-03",
+   "prices": [
+    [
+     "2026-10-03",
+     210000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Kamieńczyk Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://adresowo.pl/o/dzialka-rod-wyszkow-kamienczyk-500-m2-k0w6t2",
+   "cena_pln": 210000.0,
+   "powierzchnia_m2": 500.0,
+   "cena_za_m2": 420.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_4179680",
+   "first_seen": "2026-10-03",
+   "prices": [
+    [
+     "2026-10-03",
+     559000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Starowola Działka na sprzedaż przez agenta",
+   "miejscowosc": "Starowola",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-inwestycyjna-jadow-starowola-6-400-m2-q4v2b9",
+   "cena_pln": 559000.0,
+   "powierzchnia_m2": 6400.0,
+   "cena_za_m2": 87.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_4158944",
+   "first_seen": "2026-10-03",
+   "prices": [
+    [
+     "2026-10-03",
+     230000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Kamieńczyk Działka na sprzedaż przez agenta",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://adresowo.pl/o/dzialka-rekreacyjna-wyszkow-kamienczyk-410-m2-l7a9t5",
+   "cena_pln": 230000.0,
+   "powierzchnia_m2": 410.0,
+   "cena_za_m2": 561.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_4140064",
+   "first_seen": "2026-10-03",
+   "prices": [
+    [
+     "2026-10-03",
+     350000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Starowola Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Starowola",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-rekreacyjna-jadow-starowola-3-800-m2-b5c2q0",
+   "cena_pln": 350000.0,
+   "powierzchnia_m2": 3800.0,
+   "cena_za_m2": 92.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_3117098",
+   "first_seen": "2026-10-03",
+   "prices": [
+    [
+     "2026-10-03",
+     150000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Nadkole Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Nadkole",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-rekreacyjna-lochow-nadkole-2-495-m2-t7t3k7",
+   "cena_pln": 150000.0,
+   "powierzchnia_m2": 2495.0,
+   "cena_za_m2": 60.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_4127324",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     299999.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Kamieńczyk ul. Szmaragdowa Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://adresowo.pl/o/dzialka-budowlana-wyszkow-kamienczyk-ul-szmaragdowa-e3l7k3",
+   "cena_pln": 299999.0,
+   "powierzchnia_m2": 3081.0,
+   "cena_za_m2": 97.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_4112974",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     38000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Brańszczyk Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-rolna-branszczyk-1-ha-i1m4x2",
+   "cena_pln": 38000.0,
+   "powierzchnia_m2": 10700.0,
+   "cena_za_m2": 4.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_4092940",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     370000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Brańszczyk ul. Nakieł Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-budowlana-branszczyk-ul-nakiel-t2b8s8",
+   "cena_pln": 370000.0,
+   "powierzchnia_m2": 1957.0,
+   "cena_za_m2": 189.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_4081400",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     165600.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Kamieńczyk ul. Poziomkowa Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://adresowo.pl/o/dzialka-budowlana-wyszkow-kamienczyk-ul-poziomkowa-u9q4q7",
+   "cena_pln": 165600.0,
+   "powierzchnia_m2": 1104.0,
+   "cena_za_m2": 150.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_4055088",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     330000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Brańszczyk ul. Jeziorna Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-budowlana-branszczyk-ul-jeziorna-b1f0d0",
+   "cena_pln": 330000.0,
+   "powierzchnia_m2": 1900.0,
+   "cena_za_m2": 174.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_4038322",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     399000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Kamieńczyk ul. Polanki Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://adresowo.pl/o/dzialka-budowlana-wyszkow-kamienczyk-ul-polanki-d0o2j3",
+   "cena_pln": 399000.0,
+   "powierzchnia_m2": 1020.0,
+   "cena_za_m2": 391.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_4021316",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     280000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Brańszczyk ul. Ciepła Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-budowlana-branszczyk-ul-ciepla-s8q5u6",
+   "cena_pln": 280000.0,
+   "powierzchnia_m2": 1900.0,
+   "cena_za_m2": 147.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_3700764",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     300000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Świniotop ul. Radosna Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Świniotop",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-budowlana-wyszkow-swiniotop-ul-radosna-a6r4f1",
+   "cena_pln": 300000.0,
+   "powierzchnia_m2": 2000.0,
+   "cena_za_m2": 150.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_3660612",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     160000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Świniotop ul. Damazego Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Świniotop",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-budowlana-wyszkow-swiniotop-ul-damazego-l1d1c5",
+   "cena_pln": 160000.0,
+   "powierzchnia_m2": 1260.0,
+   "cena_za_m2": 127.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_3633098",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     150000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Kamieńczyk ul. Konwaliowa Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://adresowo.pl/o/dzialka-budowlana-wyszkow-kamienczyk-ul-konwaliowa-n4q0t9",
+   "cena_pln": 150000.0,
+   "powierzchnia_m2": 1000.0,
+   "cena_za_m2": 150.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_2597922",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     175000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Pogorzelec ul. Strażacka Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Pogorzelec",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-rolno-budowlana-lochow-pogorzelec-ul-strazacka-z9p9r6",
+   "cena_pln": 175000.0,
+   "powierzchnia_m2": 1172.0,
+   "cena_za_m2": 149.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "adresowo_1690783",
+   "first_seen": "2026-10-02",
+   "prices": [
+    [
+     "2026-10-03",
+     320000.0
+    ]
+   ],
+   "zrodlo": "Adresowo",
+   "tytul": "Świniotop ul. Wesoła Działka na sprzedaż bez pośredników",
+   "miejscowosc": "Świniotop",
+   "odcinek": "Dolny bieg",
+   "url": "https://adresowo.pl/o/dzialka-budowlana-wyszkow-swiniotop-ul-wesola-r2v0h3",
+   "cena_pln": 320000.0,
+   "powierzchnia_m2": 2857.0,
+   "cena_za_m2": 112.0,
+   "data_dodania": null,
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "68439940",
+   "first_seen": "2026-09-20",
+   "prices": [
+    [
+     "2026-10-03",
+     189000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działka budowlana w Brańszczyku | ul. Chopina | 1032m2 Bez prowizji!",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/dzialka-budowlana-w-branszczyku-ul-chopina-1032m2-bez-prowizji-ID4Dam0",
+   "cena_pln": 189000.0,
+   "powierzchnia_m2": 1032.0,
+   "cena_za_m2": 183.14,
+   "data_dodania": "2026-09-20",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "67965717",
+   "first_seen": "2026-09-12",
+   "prices": [
+    [
+     "2026-10-03",
+     329000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działka budowlana z mediami i utwardzonym dojazdem",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/dzialka-budowlana-z-mediami-i-utwardzonym-dojazdem-ID4BaZf",
+   "cena_pln": 329000.0,
+   "powierzchnia_m2": 1900.0,
+   "cena_za_m2": 173.16,
+   "data_dodania": "2026-09-12",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "68402681",
+   "first_seen": "2026-09-10",
+   "prices": [
+    [
+     "2026-10-03",
+     1084800.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działka budowlana 7 232 m² | blisko S8 | Brańszczy",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/dzialka-budowlana-7-232-m-blisko-s8-branszczy-ID4D0F3",
+   "cena_pln": 1084800.0,
+   "powierzchnia_m2": 7252.0,
+   "cena_za_m2": 149.59,
+   "data_dodania": "2026-09-10",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "68381713",
+   "first_seen": "2026-09-04",
+   "prices": [
+    [
+     "2026-10-03",
+     315000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działka budowlana w Brańszczyku, ul. Polna",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/dzialka-budowlana-w-branszczyku-ul-polna-ID4CWcR",
+   "cena_pln": 315000.0,
+   "powierzchnia_m2": 9800.0,
+   "cena_za_m2": 32.14,
+   "data_dodania": "2026-09-04",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_48704389",
+   "first_seen": "2026-08-23",
+   "prices": [
+    [
+     "2026-10-03",
+     230000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "ROD Kamieńczyk dom 80 m2/2 łazienki/4 sypialnie",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-wyszkow/ob/48704389",
+   "cena_pln": 230000.0,
+   "powierzchnia_m2": 410.0,
+   "cena_za_m2": 561.0,
+   "data_dodania": "2026-08-23",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "68321853",
+   "first_seen": "2026-08-17",
+   "prices": [
+    [
+     "2026-10-03",
+     295000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Zabudowana działka | 1800 m2 | Kamieńczyk centrum",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://www.otodom.pl/pl/oferta/zabudowana-dzialka-1800-m2-kamienczyk-centrum-ID4CFDn",
+   "cena_pln": 295000.0,
+   "powierzchnia_m2": 1800.0,
+   "cena_za_m2": 163.89,
+   "data_dodania": "2026-08-17",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_48384719",
+   "first_seen": "2026-07-26",
+   "prices": [
+    [
+     "2026-10-03",
+     559000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Liwiec/mieszkaniowa/staw/możliwość podziału/",
+   "miejscowosc": "Starowola",
+   "odcinek": "Dolny bieg",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wolominski-jadow/ob/48384719",
+   "cena_pln": 559000.0,
+   "powierzchnia_m2": 6400.0,
+   "cena_za_m2": 87.0,
+   "data_dodania": "2026-07-26",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "68249389",
+   "first_seen": "2026-07-24",
+   "prices": [
+    [
+     "2026-10-03",
+     150000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działka na WZ z własnym lasem 1271 m2",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://www.otodom.pl/pl/oferta/dzialka-na-wz-z-wlasnym-lasem-1271-m2-ID4CmMB",
+   "cena_pln": 150000.0,
+   "powierzchnia_m2": 1271.0,
+   "cena_za_m2": 118.02,
+   "data_dodania": "2026-07-24",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_48312581",
+   "first_seen": "2026-07-20",
+   "prices": [
+    [
+     "2026-10-03",
+     50000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Działka na sprzedaż, 8000 m², Wyszków Kamieńczyk",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-wyszkow/ob/48312581",
+   "cena_pln": 50000.0,
+   "powierzchnia_m2": 8000.0,
+   "cena_za_m2": 6.0,
+   "data_dodania": "2026-07-20",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "68163860",
+   "first_seen": "2026-07-01",
+   "prices": [
+    [
+     "2026-10-03",
+     318000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działka, 8 300 m², Brańszczyk",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/dzialka-8-300-m-branszczyk-ID4C0x6",
+   "cena_pln": 318000.0,
+   "powierzchnia_m2": 8300.0,
+   "cena_za_m2": 38.31,
+   "data_dodania": "2026-07-01",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "68058315",
+   "first_seen": "2026-05-29",
+   "prices": [
+    [
+     "2026-10-03",
+     695000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działka na skarpie Bugu w centrum |2600 m2 z domem",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://www.otodom.pl/pl/oferta/dzialka-na-skarpie-bugu-w-centrum-2600-m2-z-domem-ID4Bz4L",
+   "cena_pln": 695000.0,
+   "powierzchnia_m2": 2600.0,
+   "cena_za_m2": 267.31,
+   "data_dodania": "2026-05-29",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_47318993",
+   "first_seen": "2026-05-11",
+   "prices": [
+    [
+     "2026-10-03",
+     370000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Działka na sprzedaż, 2010 m², Wyszków Kamieńczyk",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-wyszkow/ob/47318993",
+   "cena_pln": 370000.0,
+   "powierzchnia_m2": 2010.0,
+   "cena_za_m2": 184.0,
+   "data_dodania": "2026-05-11",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_47056225",
+   "first_seen": "2026-04-24",
+   "prices": [
+    [
+     "2026-10-03",
+     330000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "DZIAŁKA LEŚNA - W BARDZO DOBREJ CENIE",
+   "miejscowosc": "Świniotop",
+   "odcinek": "Dolny bieg",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-wyszkow-polowa/ob/47056225",
+   "cena_pln": 330000.0,
+   "powierzchnia_m2": 7886.0,
+   "cena_za_m2": 42.0,
+   "data_dodania": "2026-04-24",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "67941834",
+   "first_seen": "2026-04-24",
+   "prices": [
+    [
+     "2026-10-03",
+     330000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działka LEŚNA - W Bardzo Dobrej Cenie",
+   "miejscowosc": "Świniotop",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/dzialka-lesna-w-bardzo-dobrej-cenie-ID4B4M2",
+   "cena_pln": 330000.0,
+   "powierzchnia_m2": 7886.0,
+   "cena_za_m2": 41.85,
+   "data_dodania": "2026-04-24",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "67469205",
+   "first_seen": "2026-03-28",
+   "prices": [
+    [
+     "2026-10-03",
+     1090000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działka, 10 585 m², Brańszczyk",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/dzialka-10-585-m-branszczyk-ID4z5OZ",
+   "cena_pln": 1090000.0,
+   "powierzchnia_m2": 10585.0,
+   "cena_za_m2": 102.98,
+   "data_dodania": "2026-03-28",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "67839937",
+   "first_seen": "2026-03-24",
+   "prices": [
+    [
+     "2026-10-03",
+     99000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Urokliwa działka rekreacyjna 150 m od Bugu",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/urokliwa-dzialka-rekreacyjna-150-m-od-bugu-ID4AEgx",
+   "cena_pln": 99000.0,
+   "powierzchnia_m2": 1148.0,
+   "cena_za_m2": 86.24,
+   "data_dodania": "2026-03-24",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_45123787",
+   "first_seen": "2025-11-21",
+   "prices": [
+    [
+     "2026-10-03",
+     1090000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Działka na sprzedaż, 10585 m², Brańszczyk",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-branszczyk/ob/45123787",
+   "cena_pln": 1090000.0,
+   "powierzchnia_m2": 10585.0,
+   "cena_za_m2": 103.0,
+   "data_dodania": "2025-11-21",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "67388484",
+   "first_seen": "2025-10-27",
+   "prices": [
+    [
+     "2026-10-03",
+     120000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działki w Kaliskach – blisko rzeki, szkoła, spokój",
+   "miejscowosc": "Pogorzelec",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/dzialki-w-kaliskach-blisko-rzeki-szkola-spokoj-ID4yKP2",
+   "cena_pln": 120000.0,
+   "powierzchnia_m2": 1000.0,
+   "cena_za_m2": 120.0,
+   "data_dodania": "2025-10-27",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "67381013",
+   "first_seen": "2025-10-24",
+   "prices": [
+    [
+     "2026-10-03",
+     166320.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Na sprzedaż działki Starowola, gm. Jadów",
+   "miejscowosc": "Starowola",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/na-sprzedaz-dzialki-starowola-gm-jadow-ID4yISx",
+   "cena_pln": 166320.0,
+   "powierzchnia_m2": 1386.0,
+   "cena_za_m2": 120.0,
+   "data_dodania": "2025-10-24",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "67118337",
+   "first_seen": "2025-10-18",
+   "prices": [
+    [
+     "2026-10-03",
+     1200000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Nad rzeką Liwiec | 12 500 m2 | inwestycyjnie",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://www.otodom.pl/pl/oferta/nad-rzeka-liwiec-12-500-m2-inwestycyjnie-ID4xCxP",
+   "cena_pln": 1200000.0,
+   "powierzchnia_m2": 12500.0,
+   "cena_za_m2": 96.0,
+   "data_dodania": "2025-10-18",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "67247021",
+   "first_seen": "2025-09-16",
+   "prices": [
+    [
+     "2026-10-03",
+     140000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Zabudowana działka na Płudach w Kamieńczyku",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://www.otodom.pl/pl/oferta/zabudowana-dzialka-na-pludach-w-kamienczyku-ID4ya1n",
+   "cena_pln": 140000.0,
+   "powierzchnia_m2": 907.0,
+   "cena_za_m2": 154.36,
+   "data_dodania": "2025-09-16",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_44016159",
+   "first_seen": "2025-09-12",
+   "prices": [
+    [
+     "2026-10-03",
+     600000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Działka budowlana Udrzyn z MPZP",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-branszczyk/ob/44016159",
+   "cena_pln": 600000.0,
+   "powierzchnia_m2": 12801.0,
+   "cena_za_m2": 47.0,
+   "data_dodania": "2025-09-12",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_35173643",
+   "first_seen": "2024-07-11",
+   "prices": [
+    [
+     "2026-10-03",
+     105000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Ładna, zalesiona działka pod zabudowę rekreacyjną",
+   "miejscowosc": "Brańszczyk-Nakieł",
+   "odcinek": "Dolny bieg",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-branszczyk-spokojna/ob/35173643",
+   "cena_pln": 105000.0,
+   "powierzchnia_m2": 1144.0,
+   "cena_za_m2": 92.0,
+   "data_dodania": "2024-07-11",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "65662899",
+   "first_seen": "2024-07-11",
+   "prices": [
+    [
+     "2026-10-03",
+     105000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Ładna, zalesiona działka pod zabudowę rekreacyjną",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/ladna-zalesiona-dzialka-pod-zabudowerekreacyjna-ID4rwW1",
+   "cena_pln": 105000.0,
+   "powierzchnia_m2": 1144.0,
+   "cena_za_m2": 91.78,
+   "data_dodania": "2024-07-11",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_35087147",
+   "first_seen": "2024-07-03",
+   "prices": [
+    [
+     "2026-10-03",
+     53235.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "5 działek rekreacyjnych w Brańszczyk-Nakieł | 65zł",
+   "miejscowosc": "Brańszczyk-Nakieł",
+   "odcinek": "Dolny bieg",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-branszczyk/ob/35087147",
+   "cena_pln": 53235.0,
+   "powierzchnia_m2": 819.0,
+   "cena_za_m2": 65.0,
+   "data_dodania": "2024-07-03",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "65629030",
+   "first_seen": "2024-07-03",
+   "prices": [
+    [
+     "2026-10-03",
+     53235.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "5 działek rekreacyjnych w Brańszczyk-Nakieł | 65zł",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/5-dzialek-rekreacyjnych-w-branszczyk-nakiel-65zl-ID4rn6K",
+   "cena_pln": 53235.0,
+   "powierzchnia_m2": 819.0,
+   "cena_za_m2": 65.0,
+   "data_dodania": "2024-07-03",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "65317872",
+   "first_seen": "2024-04-11",
+   "prices": [
+    [
+     "2026-10-03",
+     205000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Piękna duża działka budowlana Kamieńczyk",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://www.otodom.pl/pl/oferta/piekna-duza-dzialka-budowlana-kamienczyk-ID4q4a4",
+   "cena_pln": 205000.0,
+   "powierzchnia_m2": 1478.0,
+   "cena_za_m2": 138.7,
+   "data_dodania": "2024-04-11",
+   "last_seen": "2026-10-03",
+   "active": true
+  }
+ ]
+}
