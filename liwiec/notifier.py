@@ -9,6 +9,7 @@ Requires env vars (or Streamlit secrets):
 """
 import os
 import smtplib
+from html import escape
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -46,13 +47,13 @@ def _build_html(new_df: pd.DataFrame) -> str:
         rows_html += f"""
         <tr>
           <td style="padding:8px;border-bottom:1px solid #eee">
-            <a href="{r.get('url','')}" style="color:#1565C0;font-weight:600">
-              {str(r.get('tytul',''))[:70]}
+            <a href="{escape(str(r.get('url', '')))}" style="color:#1565C0;font-weight:600">
+              {escape(str(r.get('tytul', ''))[:70])}
             </a><br>
             <span style="font-size:12px;color:#666">
-              📍 {r.get('miejscowosc','')} &nbsp;·&nbsp;
-              {r.get('zrodlo','')} &nbsp;·&nbsp;
-              {r.get('odcinek','')}
+              📍 {escape(str(r.get('miejscowosc', '')))} &nbsp;·&nbsp;
+              {escape(str(r.get('zrodlo', '')))} &nbsp;·&nbsp;
+              {escape(str(r.get('odcinek', '')))}
             </span>
           </td>
           <td style="padding:8px;border-bottom:1px solid #eee;white-space:nowrap">
