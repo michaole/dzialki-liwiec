@@ -1,6 +1,48 @@
 {
- "generated": "2026-10-03T09:31:37+00:00",
+ "generated": "2026-10-03T22:40:27+00:00",
  "listings": [
+  {
+   "id": "gratka_44044895",
+   "first_seen": "2026-10-03",
+   "prices": [
+    [
+     "2026-10-03",
+     140000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Zabudowana działka na Płudach w Kamieńczyku",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-wyszkow-skowronka/ob/44044895",
+   "cena_pln": 140000.0,
+   "powierzchnia_m2": 907.0,
+   "cena_za_m2": 154.0,
+   "data_dodania": "2025-09-16",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_43289367",
+   "first_seen": "2026-10-03",
+   "prices": [
+    [
+     "2026-10-03",
+     1200000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Nad rzeką Liwiec | 12 500 m2 | inwestycyjnie",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-wyszkow-zakatek/ob/43289367",
+   "cena_pln": 1200000.0,
+   "powierzchnia_m2": 12500.0,
+   "cena_za_m2": 96.0,
+   "data_dodania": "2025-08-08",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
   {
    "id": "adresowo_4260960",
    "first_seen": "2026-10-03",
@@ -734,7 +776,7 @@
    "cena_za_m2": 120.0,
    "data_dodania": "2025-10-27",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "67381013",
@@ -776,7 +818,7 @@
    "cena_za_m2": 96.0,
    "data_dodania": "2025-10-18",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "67247021",
@@ -797,7 +839,7 @@
    "cena_za_m2": 154.36,
    "data_dodania": "2025-09-16",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_44016159",
@@ -817,6 +859,27 @@
    "powierzchnia_m2": 12801.0,
    "cena_za_m2": 47.0,
    "data_dodania": "2025-09-12",
+   "last_seen": "2026-10-03",
+   "active": true
+  },
+  {
+   "id": "gratka_40079739",
+   "first_seen": "2025-02-26",
+   "prices": [
+    [
+     "2026-10-03",
+     120000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Działki w Kaliskach – blisko rzeki, szkoła, spokój",
+   "miejscowosc": "Pogorzelec",
+   "odcinek": "Dolny bieg",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wegrowski-lochow-szkolna/ob/40079739",
+   "cena_pln": 120000.0,
+   "powierzchnia_m2": 1000.0,
+   "cena_za_m2": 120.0,
+   "data_dodania": "2025-02-26",
    "last_seen": "2026-10-03",
    "active": true
   },
