@@ -1,0 +1,563 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-03T09:44:04+00:00",
+  "title": "Design System: Działki nad Liwcem",
+  "extensions": {
+    "colorMeta": {
+      "lime": {
+        "role": "primary",
+        "displayName": "Fluorescent Lime",
+        "canonical": "oklch(89.4% 0.215 121)",
+        "tonalRamp": [
+          "#060f00",
+          "#1c2c00",
+          "#364c00",
+          "#536e00",
+          "#719200",
+          "#94b500",
+          "#b9d946",
+          "#dffe86"
+        ]
+      },
+      "orange": {
+        "role": "primary",
+        "displayName": "Fluorescent Orange",
+        "canonical": "oklch(70.3% 0.198 43)",
+        "tonalRamp": [
+          "#2f0000",
+          "#590000",
+          "#850000",
+          "#b41e00",
+          "#dd4b00",
+          "#ff7227",
+          "#ffa066",
+          "#ffcc9a"
+        ]
+      },
+      "lime-ink": {
+        "role": "primary",
+        "displayName": "Lime Ink",
+        "canonical": "oklch(24.4% 0.059 121)",
+        "tonalRamp": [
+          "#080e00",
+          "#212904",
+          "#3d4722",
+          "#5c6740",
+          "#7d8861",
+          "#9fab82",
+          "#c3d0a5",
+          "#e8f5ca"
+        ]
+      },
+      "orange-ink": {
+        "role": "primary",
+        "displayName": "Orange Ink",
+        "canonical": "oklch(20.9% 0.055 51)",
+        "tonalRamp": [
+          "#1c0300",
+          "#3a1c09",
+          "#593926",
+          "#7b5845",
+          "#9e7965",
+          "#c29c86",
+          "#e7c0aa",
+          "#ffe5ce"
+        ]
+      },
+      "kraft": {
+        "role": "secondary",
+        "displayName": "Kraft",
+        "canonical": "oklch(66.7% 0.085 67)",
+        "tonalRamp": [
+          "#200000",
+          "#3f1900",
+          "#603700",
+          "#825726",
+          "#a57848",
+          "#ca9b6a",
+          "#efbf8d",
+          "#ffe4b1"
+        ]
+      },
+      "kraft-board": {
+        "role": "secondary",
+        "displayName": "Kraft Board",
+        "canonical": "oklch(91.9% 0.020 77)",
+        "tonalRamp": [
+          "#100a03",
+          "#2b241a",
+          "#484136",
+          "#686055",
+          "#898175",
+          "#aca497",
+          "#d1c8bb",
+          "#f6ede0"
+        ]
+      },
+      "kraft-rule": {
+        "role": "secondary",
+        "displayName": "Kraft Rule",
+        "canonical": "oklch(82.5% 0.035 76)",
+        "tonalRamp": [
+          "#130900",
+          "#2f2311",
+          "#4d402d",
+          "#6d5f4b",
+          "#8f806b",
+          "#b2a38d",
+          "#d7c7b1",
+          "#fcecd5"
+        ]
+      },
+      "kraft-pale": {
+        "role": "secondary",
+        "displayName": "Pale Kraft",
+        "canonical": "oklch(90.0% 0.027 75)",
+        "tonalRamp": [
+          "#120901",
+          "#2d2316",
+          "#4b4032",
+          "#6a5f51",
+          "#8c8071",
+          "#afa393",
+          "#d4c7b6",
+          "#faecdb"
+        ]
+      },
+      "kraft-ink": {
+        "role": "secondary",
+        "displayName": "Kraft Ink",
+        "canonical": "oklch(30.3% 0.042 65)",
+        "tonalRamp": [
+          "#170700",
+          "#33210e",
+          "#523d2a",
+          "#725d48",
+          "#947e68",
+          "#b8a08a",
+          "#ddc4ad",
+          "#ffe9d2"
+        ]
+      },
+      "drop-text": {
+        "role": "secondary",
+        "displayName": "Drop Red-Orange",
+        "canonical": "oklch(52.0% 0.163 40)",
+        "tonalRamp": [
+          "#2f0000",
+          "#590000",
+          "#820000",
+          "#a93300",
+          "#d0582a",
+          "#f87c50",
+          "#ffa174",
+          "#ffcba0"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Concrete Ground",
+        "canonical": "oklch(93.0% 0.007 132)",
+        "tonalRamp": [
+          "#0a0c09",
+          "#242622",
+          "#40433f",
+          "#60625e",
+          "#81837f",
+          "#a3a6a1",
+          "#c7cac5",
+          "#edf0ea"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Table Paper",
+        "canonical": "oklch(97.4% 0.005 118)",
+        "tonalRamp": [
+          "#0b0b09",
+          "#252522",
+          "#42423f",
+          "#61625e",
+          "#82837f",
+          "#a4a5a2",
+          "#c9cac6",
+          "#eeefeb"
+        ]
+      },
+      "row-hover": {
+        "role": "neutral",
+        "displayName": "Row Hover",
+        "canonical": "oklch(95.2% 0.008 122)",
+        "tonalRamp": [
+          "#0b0c08",
+          "#242621",
+          "#41433e",
+          "#60625d",
+          "#81837e",
+          "#a4a6a0",
+          "#c8cac4",
+          "#edefe9"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "oklch(86.4% 0.012 133)",
+        "tonalRamp": [
+          "#090c07",
+          "#232620",
+          "#3f433d",
+          "#5e635c",
+          "#7f847d",
+          "#a2a79f",
+          "#c6cbc3",
+          "#ebf0e8"
+        ]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Strong Rule",
+        "canonical": "oklch(77.8% 0.014 135)",
+        "tonalRamp": [
+          "#090d07",
+          "#222720",
+          "#3f443c",
+          "#5e635b",
+          "#7f847c",
+          "#a1a79e",
+          "#c5cbc2",
+          "#eaf1e7"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Felt-Tip Ink",
+        "canonical": "oklch(20.3% 0.008 248)",
+        "tonalRamp": [
+          "#090b0e",
+          "#222529",
+          "#3f4246",
+          "#5e6265",
+          "#7f8387",
+          "#a1a5aa",
+          "#c5cace",
+          "#ebeff3"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "canonical": "oklch(41.6% 0.012 239)",
+        "tonalRamp": [
+          "#070c10",
+          "#20262a",
+          "#3c4348",
+          "#5b6268",
+          "#7c8489",
+          "#9ea6ac",
+          "#c2cad0",
+          "#e7f0f6"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink 3",
+        "canonical": "oklch(50.2% 0.014 240)",
+        "tonalRamp": [
+          "#060c10",
+          "#1f262b",
+          "#3c4349",
+          "#5a6268",
+          "#7b848a",
+          "#9ea6ad",
+          "#c1cbd1",
+          "#e7f0f7"
+        ]
+      },
+      "paper-on-ink": {
+        "role": "neutral",
+        "displayName": "Paper on Ink",
+        "canonical": "oklch(96.1% 0.007 124)",
+        "tonalRamp": [
+          "#0a0c09",
+          "#242622",
+          "#41433f",
+          "#60625e",
+          "#81837f",
+          "#a4a6a1",
+          "#c8cac5",
+          "#edefea"
+        ]
+      },
+      "muted-on-ink": {
+        "role": "neutral",
+        "displayName": "Muted on Ink",
+        "canonical": "oklch(79.2% 0.012 141)",
+        "tonalRamp": [
+          "#080c08",
+          "#222721",
+          "#3f443e",
+          "#5e635d",
+          "#7f847e",
+          "#a1a7a0",
+          "#c5cbc4",
+          "#eaf1e9"
+        ]
+      },
+      "field-white": {
+        "role": "neutral",
+        "displayName": "Field White",
+        "canonical": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Site name in the ink header only."
+      },
+      "price": {
+        "displayName": "Price",
+        "purpose": "Total price on every row; largest type on screen."
+      },
+      "number": {
+        "displayName": "Number",
+        "purpose": "PLN/m² and area figures."
+      },
+      "tag": {
+        "displayName": "Tag",
+        "purpose": "Fluorescent change cards (0.8rem on rows)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Titles, village names, controls, all running text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Filter labels, column heads, detail labels."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "River section, source, summary, footer, note previews."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-shadow",
+        "value": "0 1px 1px rgba(20, 23, 26, .18), 0 3px 6px -2px rgba(20, 23, 26, .28)",
+        "purpose": "Fluorescent new/cheaper tags only."
+      },
+      {
+        "name": "stick-lift",
+        "value": "0 6px 12px -2px rgba(20,23,26,.3)",
+        "purpose": "Start frame of the tag stick entrance."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 2px solid #14171a; outline-offset: 2px; box-shadow: 0 0 0 5px #c8f000",
+        "purpose": "Universal focus ring; inside the ink header, a lime outline alone."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "All state transitions."
+      },
+      {
+        "name": "tag-straighten",
+        "value": "transform .25s ease-out",
+        "purpose": "Header tag hover/press straightens to 0deg and lifts 1px."
+      },
+      {
+        "name": "tag-stick",
+        "value": "stick .5s ease-out, delay index*25ms; from rotate(-9deg) translateY(-3px)",
+        "purpose": "Row tags landing after data load; prefers-reduced-motion: no-preference only."
+      },
+      {
+        "name": "sort-indicator",
+        "value": "opacity .15s",
+        "purpose": "Sort triangle fade."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow",
+        "value": "860px",
+        "purpose": "Max-width: header stacks, table rows become two-line grid blocks."
+      }
+    ],
+    "ageRamp": [
+      {
+        "maxDays": 7,
+        "color": "#a9cc00"
+      },
+      {
+        "maxDays": 30,
+        "color": "#7d9a3a"
+      },
+      {
+        "maxDays": 90,
+        "color": "#b88a5a"
+      },
+      {
+        "maxDays": null,
+        "color": "#9aa0a6"
+      }
+    ],
+    "columnWidths": {
+      "star": "44px",
+      "state": "132px",
+      "place": "140px",
+      "title": "auto",
+      "price": "136px",
+      "ppm": "84px",
+      "area": "104px",
+      "age": "124px",
+      "note": "150px"
+    }
+  },
+  "components": [
+    {
+      "name": "New Tag",
+      "kind": "chip",
+      "refersTo": "tag-new",
+      "description": "Fluorescent lime card for listings new since the last visit; header version is a count + quick filter.",
+      "html": "<button type=\"button\" class=\"ds-tag ds-tag--new\">12&nbsp;nowe</button>",
+      "css": ":host{--ground:#e6e9e4;--surface:#f6f7f3;--row-hover:#eef0ea;--rule:#cfd4cc;--rule-strong:#b3b9b0;--ink:#14171a;--ink-2:#464d52;--ink-3:#5d656b;--kraft:#b88a5a;--kraft-ink:#3d2a17;--kraft-pale:#e9dccb;--kraft-board:#ece3d6;--kraft-rule:#d3c3ad;--lime:#c8f000;--lime-ink:#1c2400;--orange:#ff6b1a;--orange-ink:#2b0f00;--face-price:'Barlow Condensed','Arial Narrow',sans-serif;--face-ui:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;--radius:6px;--card-shadow:0 1px 1px rgba(20,23,26,.18),0 3px 6px -2px rgba(20,23,26,.28);--ease-out:cubic-bezier(.16,1,.3,1)} .ds-tag{display:inline-flex;align-items:baseline;gap:2px;padding:3px 8px 2px;border:0;border-radius:2px;font:800 .95rem/1.1 var(--face-price);letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;box-shadow:var(--card-shadow);transform:rotate(var(--tilt,-2deg));cursor:pointer;transition:transform .25s var(--ease-out)} .ds-tag:hover{transform:rotate(0deg) translateY(-1px)} .ds-tag:focus-visible{outline:2px solid var(--ink,#14171a);outline-offset:2px;box-shadow:0 0 0 5px var(--lime,#c8f000);} .ds-tag--new{background:var(--lime);color:var(--lime-ink);--tilt:-2.5deg}"
+    },
+    {
+      "name": "Cheaper Tag",
+      "kind": "chip",
+      "refersTo": "tag-cheaper",
+      "description": "Fluorescent orange card carrying the price drop and the struck-through old price.",
+      "html": "<button type=\"button\" class=\"ds-tag ds-tag--cheaper\">−20 000<span class=\"ds-tag__was\">189 000</span></button>",
+      "css": ":host{--ground:#e6e9e4;--surface:#f6f7f3;--row-hover:#eef0ea;--rule:#cfd4cc;--rule-strong:#b3b9b0;--ink:#14171a;--ink-2:#464d52;--ink-3:#5d656b;--kraft:#b88a5a;--kraft-ink:#3d2a17;--kraft-pale:#e9dccb;--kraft-board:#ece3d6;--kraft-rule:#d3c3ad;--lime:#c8f000;--lime-ink:#1c2400;--orange:#ff6b1a;--orange-ink:#2b0f00;--face-price:'Barlow Condensed','Arial Narrow',sans-serif;--face-ui:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;--radius:6px;--card-shadow:0 1px 1px rgba(20,23,26,.18),0 3px 6px -2px rgba(20,23,26,.28);--ease-out:cubic-bezier(.16,1,.3,1)} .ds-tag{display:inline-flex;align-items:baseline;gap:2px;padding:3px 8px 2px;border:0;border-radius:2px;font:800 .95rem/1.1 var(--face-price);letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;box-shadow:var(--card-shadow);transform:rotate(var(--tilt,-2deg));cursor:pointer;transition:transform .25s var(--ease-out)} .ds-tag:hover{transform:rotate(0deg) translateY(-1px)} .ds-tag:focus-visible{outline:2px solid var(--ink,#14171a);outline-offset:2px;box-shadow:0 0 0 5px var(--lime,#c8f000);} .ds-tag--cheaper{background:var(--orange);color:var(--orange-ink);--tilt:1.5deg} .ds-tag__was{font-size:.9em;font-weight:700;text-decoration:line-through;text-decoration-thickness:1px;margin-left:5px}"
+    },
+    {
+      "name": "Gone Tag",
+      "kind": "chip",
+      "refersTo": "tag-gone",
+      "description": "Flat pale-kraft card with kraft outline for listings that disappeared.",
+      "html": "<button type=\"button\" class=\"ds-tag ds-tag--gone\">3&nbsp;zniknęło</button>",
+      "css": ":host{--ground:#e6e9e4;--surface:#f6f7f3;--row-hover:#eef0ea;--rule:#cfd4cc;--rule-strong:#b3b9b0;--ink:#14171a;--ink-2:#464d52;--ink-3:#5d656b;--kraft:#b88a5a;--kraft-ink:#3d2a17;--kraft-pale:#e9dccb;--kraft-board:#ece3d6;--kraft-rule:#d3c3ad;--lime:#c8f000;--lime-ink:#1c2400;--orange:#ff6b1a;--orange-ink:#2b0f00;--face-price:'Barlow Condensed','Arial Narrow',sans-serif;--face-ui:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;--radius:6px;--card-shadow:0 1px 1px rgba(20,23,26,.18),0 3px 6px -2px rgba(20,23,26,.28);--ease-out:cubic-bezier(.16,1,.3,1)} .ds-tag{display:inline-flex;align-items:baseline;gap:2px;padding:3px 8px 2px;border:0;border-radius:2px;font:800 .95rem/1.1 var(--face-price);letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;box-shadow:var(--card-shadow);transform:rotate(var(--tilt,-2deg));cursor:pointer;transition:transform .25s var(--ease-out)} .ds-tag:hover{transform:rotate(0deg) translateY(-1px)} .ds-tag:focus-visible{outline:2px solid var(--ink,#14171a);outline-offset:2px;box-shadow:0 0 0 5px var(--lime,#c8f000);} .ds-tag--gone{background:var(--kraft-pale);color:var(--kraft-ink);--tilt:-1deg;box-shadow:none;outline:1px solid var(--kraft);outline-offset:-1px}"
+    },
+    {
+      "name": "Header Bar",
+      "kind": "nav",
+      "refersTo": "header-bar",
+      "description": "Ink header: site name in condensed 800, data date, and since-last-visit tag buttons.",
+      "html": "<header class=\"ds-bar\"><div><h1>Działki nad Liwcem</h1><p>Dane z 3 października 2026</p></div><nav><span>Od ostatniej wizyty</span><button type=\"button\" class=\"ds-t ds-t--new\">4&nbsp;nowe</button><button type=\"button\" class=\"ds-t ds-t--ch\">2&nbsp;tańsze</button></nav></header>",
+      "css": ":host{--ground:#e6e9e4;--surface:#f6f7f3;--row-hover:#eef0ea;--rule:#cfd4cc;--rule-strong:#b3b9b0;--ink:#14171a;--ink-2:#464d52;--ink-3:#5d656b;--kraft:#b88a5a;--kraft-ink:#3d2a17;--kraft-pale:#e9dccb;--kraft-board:#ece3d6;--kraft-rule:#d3c3ad;--lime:#c8f000;--lime-ink:#1c2400;--orange:#ff6b1a;--orange-ink:#2b0f00;--face-price:'Barlow Condensed','Arial Narrow',sans-serif;--face-ui:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;--radius:6px;--card-shadow:0 1px 1px rgba(20,23,26,.18),0 3px 6px -2px rgba(20,23,26,.28);--ease-out:cubic-bezier(.16,1,.3,1)} .ds-bar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:12px 24px;background:var(--ink);color:#f1f3ee;font-family:var(--face-ui)} .ds-bar h1{margin:0;font:800 1.75rem/1 var(--face-price);letter-spacing:.005em} .ds-bar p{margin:3px 0 0;font-size:.8rem;color:#b7bdb6} .ds-bar nav{display:flex;align-items:center;gap:12px} .ds-bar nav span{font-size:.8rem;color:#b7bdb6} .ds-t{padding:3px 8px 2px;border:0;border-radius:2px;font:800 .95rem/1.1 var(--face-price);letter-spacing:.03em;text-transform:uppercase;box-shadow:var(--card-shadow);cursor:pointer;transform:rotate(var(--tilt));transition:transform .25s var(--ease-out)} .ds-t:hover{transform:rotate(0) translateY(-1px)} .ds-t:focus-visible{outline:2px solid var(--lime);outline-offset:2px} .ds-t--new{background:var(--lime);color:var(--lime-ink);--tilt:-2.5deg} .ds-t--ch{background:var(--orange);color:var(--orange-ink);--tilt:1.5deg}"
+    },
+    {
+      "name": "Numeric Input with Unit",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Labelled 34px field on kraft board; right-aligned number fused to a pale-kraft unit box.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field__label\">Cena do</span><span class=\"ds-unit\"><input type=\"number\" placeholder=\"bez limitu\"><span>zł</span></span></label>",
+      "css": ":host{--ground:#e6e9e4;--surface:#f6f7f3;--row-hover:#eef0ea;--rule:#cfd4cc;--rule-strong:#b3b9b0;--ink:#14171a;--ink-2:#464d52;--ink-3:#5d656b;--kraft:#b88a5a;--kraft-ink:#3d2a17;--kraft-pale:#e9dccb;--kraft-board:#ece3d6;--kraft-rule:#d3c3ad;--lime:#c8f000;--lime-ink:#1c2400;--orange:#ff6b1a;--orange-ink:#2b0f00;--face-price:'Barlow Condensed','Arial Narrow',sans-serif;--face-ui:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;--radius:6px;--card-shadow:0 1px 1px rgba(20,23,26,.18),0 3px 6px -2px rgba(20,23,26,.28);--ease-out:cubic-bezier(.16,1,.3,1)} .ds-field{display:inline-flex;flex-direction:column;gap:5px;padding:16px 24px;background:var(--kraft-board);font-family:var(--face-ui)} .ds-field__label{font-size:.75rem;font-weight:600;color:var(--ink-2)} .ds-unit{display:flex} .ds-unit input{height:34px;width:110px;padding:0 10px;text-align:right;font:15px var(--face-ui);color:var(--ink);background:#fff;border:1px solid var(--rule-strong);border-radius:var(--radius) 0 0 var(--radius)} .ds-unit input::placeholder{color:var(--ink-3)} .ds-unit input:focus-visible{outline:2px solid var(--ink,#14171a);outline-offset:2px;box-shadow:0 0 0 5px var(--lime,#c8f000);} .ds-unit>span{display:grid;place-items:center;padding:0 9px;font-size:.85rem;color:var(--ink-2);background:var(--kraft-pale);border:1px solid var(--rule-strong);border-left:0;border-radius:0 var(--radius) var(--radius) 0}"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "34px pill with native checkbox for portals and show-toggles; checked turns ink.",
+      "html": "<span class=\"ds-chips\"><label class=\"ds-chip\"><input type=\"checkbox\" checked>Otodom <span class=\"ds-chip__n\">41</span></label><label class=\"ds-chip\"><input type=\"checkbox\">OLX <span class=\"ds-chip__n\">17</span></label></span>",
+      "css": ":host{--ground:#e6e9e4;--surface:#f6f7f3;--row-hover:#eef0ea;--rule:#cfd4cc;--rule-strong:#b3b9b0;--ink:#14171a;--ink-2:#464d52;--ink-3:#5d656b;--kraft:#b88a5a;--kraft-ink:#3d2a17;--kraft-pale:#e9dccb;--kraft-board:#ece3d6;--kraft-rule:#d3c3ad;--lime:#c8f000;--lime-ink:#1c2400;--orange:#ff6b1a;--orange-ink:#2b0f00;--face-price:'Barlow Condensed','Arial Narrow',sans-serif;--face-ui:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;--radius:6px;--card-shadow:0 1px 1px rgba(20,23,26,.18),0 3px 6px -2px rgba(20,23,26,.28);--ease-out:cubic-bezier(.16,1,.3,1)} .ds-chips{display:inline-flex;gap:6px;font-family:var(--face-ui)} .ds-chip{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 11px;font-size:.875rem;color:var(--ink-2);background:#fff;border:1px solid var(--rule-strong);border-radius:999px;cursor:pointer} .ds-chip input{accent-color:var(--ink);margin:0} .ds-chip:has(input:checked){color:var(--ink);border-color:var(--ink)} .ds-chip:has(input:focus-visible){outline:2px solid var(--ink,#14171a);outline-offset:2px;box-shadow:0 0 0 5px var(--lime,#c8f000);} .ds-chip input:focus-visible{outline:none} .ds-chip__n{color:var(--ink-3);font-size:.8rem}"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Transparent underlined text button for reset actions.",
+      "html": "<button type=\"button\" class=\"ds-btn-quiet\">Wyczyść</button>",
+      "css": ":host{--ground:#e6e9e4;--surface:#f6f7f3;--row-hover:#eef0ea;--rule:#cfd4cc;--rule-strong:#b3b9b0;--ink:#14171a;--ink-2:#464d52;--ink-3:#5d656b;--kraft:#b88a5a;--kraft-ink:#3d2a17;--kraft-pale:#e9dccb;--kraft-board:#ece3d6;--kraft-rule:#d3c3ad;--lime:#c8f000;--lime-ink:#1c2400;--orange:#ff6b1a;--orange-ink:#2b0f00;--face-price:'Barlow Condensed','Arial Narrow',sans-serif;--face-ui:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;--radius:6px;--card-shadow:0 1px 1px rgba(20,23,26,.18),0 3px 6px -2px rgba(20,23,26,.28);--ease-out:cubic-bezier(.16,1,.3,1)} .ds-btn-quiet{height:34px;padding:0 12px;background:transparent;border:1px solid transparent;border-radius:var(--radius);color:var(--ink-2);font:.875rem var(--face-ui);cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--rule-strong)} .ds-btn-quiet:hover{color:var(--ink);text-decoration-color:currentColor} .ds-btn-quiet:focus-visible{outline:2px solid var(--ink,#14171a);outline-offset:2px;box-shadow:0 0 0 5px var(--lime,#c8f000);}"
+    },
+    {
+      "name": "Favourite Star",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "30px icon button; pressed star fills lime with ink stroke.",
+      "html": "<button type=\"button\" class=\"ds-icon\" aria-pressed=\"false\" aria-label=\"Ulubione\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" aria-hidden=\"true\" style=\"fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round\"><path d=\"M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.6L12 16.5l-5.1 2.7 1-5.6-4.1-4 5.7-.8z\"/></svg></button><button type=\"button\" class=\"ds-icon\" aria-pressed=\"true\" aria-label=\"Ulubione\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" aria-hidden=\"true\" style=\"fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round\"><path d=\"M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.6L12 16.5l-5.1 2.7 1-5.6-4.1-4 5.7-.8z\"/></svg></button>",
+      "css": ":host{--ground:#e6e9e4;--surface:#f6f7f3;--row-hover:#eef0ea;--rule:#cfd4cc;--rule-strong:#b3b9b0;--ink:#14171a;--ink-2:#464d52;--ink-3:#5d656b;--kraft:#b88a5a;--kraft-ink:#3d2a17;--kraft-pale:#e9dccb;--kraft-board:#ece3d6;--kraft-rule:#d3c3ad;--lime:#c8f000;--lime-ink:#1c2400;--orange:#ff6b1a;--orange-ink:#2b0f00;--face-price:'Barlow Condensed','Arial Narrow',sans-serif;--face-ui:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;--radius:6px;--card-shadow:0 1px 1px rgba(20,23,26,.18),0 3px 6px -2px rgba(20,23,26,.28);--ease-out:cubic-bezier(.16,1,.3,1)} .ds-icon{display:inline-grid;place-items:center;width:30px;height:30px;padding:0;background:none;border:0;border-radius:var(--radius);color:var(--ink-3);cursor:pointer} .ds-icon:hover{color:var(--ink);background:var(--ground)} .ds-icon:focus-visible{outline:2px solid var(--ink,#14171a);outline-offset:2px;box-shadow:0 0 0 5px var(--lime,#c8f000);} .ds-icon[aria-pressed=true]{color:var(--ink)} .ds-icon[aria-pressed=true] svg{fill:var(--lime);stroke:var(--ink)}"
+    },
+    {
+      "name": "Price Row",
+      "kind": "custom",
+      "refersTo": "table-row",
+      "description": "Signature table row: tag, village + section, title, the price as the loudest type, condensed numbers, and the days-on-market ramp.",
+      "html": "<table class=\"ds-plots\"><tbody><tr><td><span class=\"ds-rt\">−20 000<s>189 000</s></span></td><td><b>Kamieńczyk</b><small>ujście do Bugu</small></td><td><a href=\"#\">Działka budowlana 1200 m²</a><small>Otodom</small></td><td class=\"n\"><span class=\"ds-price\">169 000</span><i>zł</i></td><td class=\"n\"><span class=\"ds-num\">141</span><i>zł</i></td><td class=\"n\"><span class=\"ds-num\">1 200</span><i>m²</i></td><td><div class=\"ds-age\"><div class=\"ds-age__bar\"><div style=\"width:30%;background:#7d9a3a\"></div></div><span>27 dni</span></div></td></tr></tbody></table>",
+      "css": ":host{--ground:#e6e9e4;--surface:#f6f7f3;--row-hover:#eef0ea;--rule:#cfd4cc;--rule-strong:#b3b9b0;--ink:#14171a;--ink-2:#464d52;--ink-3:#5d656b;--kraft:#b88a5a;--kraft-ink:#3d2a17;--kraft-pale:#e9dccb;--kraft-board:#ece3d6;--kraft-rule:#d3c3ad;--lime:#c8f000;--lime-ink:#1c2400;--orange:#ff6b1a;--orange-ink:#2b0f00;--face-price:'Barlow Condensed','Arial Narrow',sans-serif;--face-ui:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;--radius:6px;--card-shadow:0 1px 1px rgba(20,23,26,.18),0 3px 6px -2px rgba(20,23,26,.28);--ease-out:cubic-bezier(.16,1,.3,1)} .ds-plots{border-collapse:collapse;background:var(--surface);border:1px solid var(--rule);font:15px/1.45 var(--face-ui);font-variant-numeric:tabular-nums;color:var(--ink)} .ds-plots td{padding:9px 12px;vertical-align:middle;border-bottom:1px solid var(--rule)} .ds-plots tr:hover td{background:var(--row-hover)} .ds-plots small{display:block;font-size:.78rem;color:var(--ink-3)} .ds-plots a{color:inherit;font-weight:500;text-underline-offset:3px;text-decoration-color:var(--rule-strong)} .ds-plots a:hover{text-decoration-color:currentColor} .ds-plots a:focus-visible{outline:2px solid var(--ink,#14171a);outline-offset:2px;box-shadow:0 0 0 5px var(--lime,#c8f000);} .ds-plots .n{text-align:right;white-space:nowrap} .ds-plots i{font:normal 600 .8rem var(--face-ui);color:var(--ink-3);margin-left:3px} .ds-price{font:800 1.45rem/1 var(--face-price);letter-spacing:.01em;font-variant-numeric:tabular-nums lining-nums} .ds-num{font:800 1.05rem/1 var(--face-price);color:var(--ink-2)} .ds-rt{display:inline-flex;gap:2px;padding:2px 6px 1px;border-radius:2px;background:var(--orange);color:var(--orange-ink);font:800 .8rem/1.1 var(--face-price);letter-spacing:.03em;box-shadow:var(--card-shadow);transform:rotate(1.5deg)} .ds-rt s{margin-left:5px;font-weight:700} .ds-age{display:grid;grid-template-columns:100px auto;align-items:center;gap:8px} .ds-age__bar{height:6px;border-radius:3px;background:var(--rule);overflow:hidden} .ds-age__bar div{height:100%;border-radius:3px} .ds-age span{font-size:.8rem;color:var(--ink-2)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Market Stall Price Board",
+    "overview": "A trader's stall at a country market: concrete-grey ground, a black felt-tip header, kraft cardboard for the chrome you handle (filters, column heads, opened rows), and fluorescent card tags stuck on, slightly askew, wherever something has changed. Price is the loudest thing on every row. Everything that is not a price, a number or a change tag speaks in a quiet system sans.\n\nThe system is dense on purpose. It is one sortable table, not a grid of photo cards and not a row of KPI tiles. Columns have fixed widths and never move; filters only hide rows. Colour carries state, not decoration: lime means new, orange means cheaper, kraft means gone, and the days-on-market ramp runs one fixed fresh-to-stale scale. Motion is limited to a single \"stick\" moment when the change tags land after data loads, and a straighten-up when a header tag is hovered or pressed.\n\nThe UI language is Polish and the setting is a laptop at a desk; on narrow screens rows fold into two-line blocks but keep the same vocabulary.",
+    "keyCharacteristics": [
+      "Concrete ground, ink header, kraft chrome, fluorescent state cards.",
+      "Heavy condensed face (Barlow Condensed 800) for prices, numbers, tags and the site name only; system sans for everything else.",
+      "Tabular figures everywhere; numeric columns right-aligned tight to the column edge.",
+      "Fixed-width columns that never shift.",
+      "One fluorescent accent per live state, never as decoration."
+    ],
+    "rules": [
+      {
+        "name": "The One Card Per State Rule",
+        "body": "Lime means new, orange means cheaper, kraft means gone. A fluorescent colour never appears without a change behind it, and is never used as decoration, a section accent or a button fill.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink-On-Fluo Rule",
+        "body": "Text on lime or orange is always its dedicated near-black ink (lime-ink, orange-ink), never white and never the plain ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Figures-Are-Condensed Rule",
+        "body": "Barlow Condensed is for prices, numbers, change tags and the site name. Labels, titles, notes and controls stay in the system sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Figures are tabular across the whole page; numeric columns and their headers are right-aligned so digits line up down the column.",
+        "section": "typography"
+      },
+      {
+        "name": "The Columns Never Move Rule",
+        "body": "Column widths are fixed; filtering, sorting and opening a detail row never shift a column. Filters hide rows, they do not reflow the table.",
+        "section": "layout"
+      },
+      {
+        "name": "The Only Cards Cast Shadows Rule",
+        "body": "Shadows belong to the fluorescent tags. Tables, filters, inputs and buttons stay flat.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do make the price the largest type on every row (Barlow Condensed 800, 1.45rem), right-aligned in its fixed column.",
+      "Do use lime only for new, orange only for cheaper, and kraft for gone; put lime-ink or orange-ink text on them.",
+      "Do keep column widths fixed and let filters hide rows rather than reflow the table.",
+      "Do keep all figures tabular and numeric columns right-aligned.",
+      "Do colour days on market only from the fixed ramp (#a9cc00 / #7d9a3a / #b88a5a / #9aa0a6 at 7 / 30 / 90 / 90+ days).",
+      "Do use the shared focus ring (2px ink outline + 5px lime halo) on every interactive element.",
+      "Do keep chrome you handle (filters, column heads, opened rows) on kraft board, and data on table paper."
+    ],
+    "donts": [
+      "Don't use fluorescent lime or orange as decoration, button fills or section accents.",
+      "Don't put shadows on anything but the fluorescent tags.",
+      "Don't set labels, titles, notes or controls in the condensed face.",
+      "Don't replace the price table with photo cards or KPI tiles.",
+      "Don't use fluorescent orange as text colour; use Drop Red-Orange (drop-text) for drop figures.",
+      "Don't add motion beyond the tag \"stick\" entrance and the header-tag straighten, and always guard it with prefers-reduced-motion."
+    ]
+  }
+}

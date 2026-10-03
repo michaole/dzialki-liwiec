@@ -1,0 +1,122 @@
+{
+  "title": "Działki nad Liwcem — wybierz świat wizualny",
+  "question": "The roll assigned Targ — fluo price cards. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Targ — fluo price cards",
+      "kicker": "THE ROLL",
+      "lineage": "hand-lettered fluorescent price cards on Polish market stalls",
+      "thesis": "Price is the loudest thing on every row, and whatever changed since yesterday is shouted on fluorescent card.",
+      "palette": ["#14171A", "#E9ECE8", "#C8F000", "#FF6B1A", "#B88A5A"],
+      "materials": ["fluorescent cardboard", "felt-tip marker", "kraft board"],
+      "viewport": "Slim top bar with 'since your last visit' counts and filters; below, one dense sortable table of every plot, price figures set large in marker weight, NOWE / TANIEJ / ZNIKNĘŁO as fluo card tags.",
+      "risk": "Marker lettering tips into gimmick if it spreads beyond price figures and state tags.",
+      "raised": [
+        {"from": "challenger-jcard", "raise": "Prices and areas right-aligned in tabular figures tight to the column edge, read like a stall's price list."},
+        {"from": "challenger-metro", "raise": "One fluorescent accent owns every live state (new, cheaper); colour is never decoration."},
+        {"from": "challenger-staratlas", "raise": "Days on market encoded on one fixed fresh-to-stale ramp, identical everywhere."},
+        {"from": "challenger-crouwel", "raise": "Strict whole-cell grid: columns never shift, filters only hide rows."}
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Odjazdy — PKP timetable poster",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "the yellow 'Odjazdy' departure timetable on every Polish station wall",
+      "thesis": "Plots set in the column rhythm of the yellow station timetable, grouped by day listed, footnote marks carrying state.",
+      "palette": ["#F6D21E", "#111111", "#FFFFFF", "#C8102E", "#1F4E9C"],
+      "materials": ["offset-printed timetable paper", "footnote symbols", "ruled columns"],
+      "viewport": "Yellow header band with 'Nowe od wczoraj: 9'; table grouped under day headings like departure hours, price and PLN/m² columns, footnote glyphs for price drops and gone listings.",
+      "risk": "The most direct read of 'what is new', and the time-table metaphor many tools reach for."
+    },
+    {
+      "id": "challenger-splitflap",
+      "label": "Split-flap concourse board",
+      "verdict": "competitive",
+      "lineage": "rail concourse split-flap departure boards",
+      "thesis": "Every plot a departure row; price drops flip amber, gone listings drop to dim red.",
+      "palette": ["#111111", "#F2F2F2", "#FFB000", "#B3261E", "#9AA0A6"],
+      "materials": ["matte black flaps", "brushed steel frame", "amber row lamps"],
+      "viewport": "Black board of fixed-cell rows ranked by date listed, condensed caps, amber lamps on changed rows.",
+      "case": "Fuses cleanly: rows ranked by time and delay/cancel states map to cheaper/gone; loses on your 'no gimmicks' — flap motion fights quick price reading.",
+      "risk": "Black-board density on a laptop reads heavy for a few-minute daily check."
+    },
+    {
+      "id": "challenger-doujin",
+      "label": "Convention circle catalog",
+      "verdict": "competitive",
+      "lineage": "newsprint doujin event catalogs",
+      "thesis": "A packed grid of compact plot cells; shortlisted ones circled in pen, seen ones struck through.",
+      "palette": ["#1A1A1A", "#ECEAE4", "#2B6BE0"],
+      "materials": ["single-ink newsprint", "biro circles", "one spot colour"],
+      "viewport": "Edge-to-edge grid of small plot cells with code, village and price; pen-circled shortlist pinned on top.",
+      "case": "Holds clarity: circled = shortlisted, struck = seen is instantly legible triage; you would not recognise the form itself.",
+      "risk": "Cell grid compares prices worse than a table column does."
+    },
+    {
+      "id": "challenger-jcard",
+      "label": "Mixtape j-card",
+      "verdict": "declined",
+      "lineage": "hand-lettered cassette inlays",
+      "thesis": "Listings as a ruled tracklist, durations right-aligned.",
+      "palette": ["#1E3A8A", "#FFFFFF", "#D7263D"],
+      "materials": ["ballpoint", "lined inlay stock"],
+      "viewport": "Side A / Side B halves of a ruled list.",
+      "case": "Loses both axes: no tie to land buying, halves split one list for no reason.",
+      "risk": "Nostalgia costume.",
+      "kept": "Right-aligned figures tight to the margin."
+    },
+    {
+      "id": "challenger-metro",
+      "label": "Metro typographic tiles",
+      "verdict": "declined",
+      "lineage": "Windows Phone Metro",
+      "thesis": "Giant cropped lowercase over flat colour tiles.",
+      "palette": ["#000000", "#00ABA9", "#FFFFFF"],
+      "materials": ["flat colour fields", "light grotesk"],
+      "viewport": "Panorama of tiles, one plot per tile.",
+      "case": "Loses both: exactly the 'too sparse' you ruled out.",
+      "risk": "Five plots per screen.",
+      "kept": "One accent owns every live state."
+    },
+    {
+      "id": "challenger-staratlas",
+      "label": "Star atlas",
+      "verdict": "declined",
+      "lineage": "celestial charts",
+      "thesis": "Plots as stars, magnitude as price.",
+      "palette": ["#0B1D3A", "#F4F1E8", "#D2452B"],
+      "materials": ["navy chart ground", "chalk dots"],
+      "viewport": "A chart of dots you hover to read.",
+      "case": "Loses both: hides prices behind a metaphor.",
+      "risk": "Unreadable at a glance.",
+      "kept": "One quantity on one fixed ramp."
+    },
+    {
+      "id": "challenger-crouwel",
+      "label": "Crouwel grid specimen",
+      "verdict": "declined",
+      "lineage": "Wim Crouwel posters",
+      "thesis": "The grid itself as the visible armature.",
+      "palette": ["#FFFFFF", "#111111", "#E30613"],
+      "materials": ["construction grid", "grid-built letters"],
+      "viewport": "Monumental numerals on a visible grid.",
+      "case": "Loses both: a poster, not a daily tool.",
+      "risk": "Form over task.",
+      "kept": "Whole-cell grid that never shifts."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code"},
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "A clean data-table app (Airtable / Linear list style), executed impeccably.",
+    "palette": ["#FFFFFF", "#111827", "#2563EB"],
+    "materials": ["clean grid", "neutral greys"],
+    "viewport": "Filter bar, sortable table, side panel with listing details.",
+    "risk": "Indistinguishable from every other tool by design."
+  },
+  "steer": true
+}
