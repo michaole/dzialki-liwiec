@@ -1,6 +1,69 @@
 {
- "generated": "2026-10-03T22:40:27+00:00",
+ "generated": "2026-10-04T22:43:44+00:00",
  "listings": [
+  {
+   "id": "gratka_48848143",
+   "first_seen": "2026-10-04",
+   "prices": [
+    [
+     "2026-10-04",
+     315000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Działka budowlana w Brańszczyku, ul. Polna",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-branszczyk-polna/ob/48848143",
+   "cena_pln": 315000.0,
+   "powierzchnia_m2": 9800.0,
+   "cena_za_m2": 32.0,
+   "data_dodania": "2026-09-04",
+   "last_seen": "2026-10-04",
+   "active": true
+  },
+  {
+   "id": "gratka_46397241",
+   "first_seen": "2026-10-04",
+   "prices": [
+    [
+     "2026-10-04",
+     99000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Urokliwa działka rekreacyjna 150 m od Bugu",
+   "miejscowosc": "Brańszczyk",
+   "odcinek": "Dolny bieg",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-branszczyk-kwiatowa/ob/46397241",
+   "cena_pln": 99000.0,
+   "powierzchnia_m2": 1148.0,
+   "cena_za_m2": 86.0,
+   "data_dodania": "2026-03-24",
+   "last_seen": "2026-10-04",
+   "active": true
+  },
+  {
+   "id": "68489936",
+   "first_seen": "2026-10-04",
+   "prices": [
+    [
+     "2026-10-04",
+     115000.0
+    ]
+   ],
+   "zrodlo": "Otodom",
+   "tytul": "Działka jest MPZP pod zabudowe mieszkaniowa Świniotop/Kamieńczyk",
+   "miejscowosc": "Świniotop",
+   "odcinek": "Dolny bieg",
+   "url": "https://www.otodom.pl/pl/oferta/dzialka-jest-mpzp-pod-zabudowe-mieszkaniowa-swiniotop-kamienczyk-ID4Dnmo",
+   "cena_pln": 115000.0,
+   "powierzchnia_m2": 839.0,
+   "cena_za_m2": 137.07,
+   "data_dodania": "2026-10-04",
+   "last_seen": "2026-10-04",
+   "active": true
+  },
   {
    "id": "gratka_44044895",
    "first_seen": "2026-10-03",
@@ -20,7 +83,7 @@
    "cena_za_m2": 154.0,
    "data_dodania": "2025-09-16",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_43289367",
@@ -41,7 +104,7 @@
    "cena_za_m2": 96.0,
    "data_dodania": "2025-08-08",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "adresowo_4260960",
@@ -61,7 +124,7 @@
    "powierzchnia_m2": 500.0,
    "cena_za_m2": 420.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -82,7 +145,7 @@
    "powierzchnia_m2": 6400.0,
    "cena_za_m2": 87.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -103,7 +166,7 @@
    "powierzchnia_m2": 410.0,
    "cena_za_m2": 561.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -124,7 +187,7 @@
    "powierzchnia_m2": 3800.0,
    "cena_za_m2": 92.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -145,7 +208,7 @@
    "powierzchnia_m2": 2495.0,
    "cena_za_m2": 60.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -166,7 +229,7 @@
    "powierzchnia_m2": 3081.0,
    "cena_za_m2": 97.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -187,7 +250,7 @@
    "powierzchnia_m2": 10700.0,
    "cena_za_m2": 4.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -208,7 +271,7 @@
    "powierzchnia_m2": 1957.0,
    "cena_za_m2": 189.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -229,7 +292,7 @@
    "powierzchnia_m2": 1104.0,
    "cena_za_m2": 150.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -250,7 +313,7 @@
    "powierzchnia_m2": 1900.0,
    "cena_za_m2": 174.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -271,7 +334,7 @@
    "powierzchnia_m2": 1020.0,
    "cena_za_m2": 391.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -292,7 +355,7 @@
    "powierzchnia_m2": 1900.0,
    "cena_za_m2": 147.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -313,7 +376,7 @@
    "powierzchnia_m2": 2000.0,
    "cena_za_m2": 150.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -334,7 +397,7 @@
    "powierzchnia_m2": 1260.0,
    "cena_za_m2": 127.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -355,7 +418,7 @@
    "powierzchnia_m2": 1000.0,
    "cena_za_m2": 150.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -376,7 +439,7 @@
    "powierzchnia_m2": 1172.0,
    "cena_za_m2": 149.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -397,7 +460,7 @@
    "powierzchnia_m2": 2857.0,
    "cena_za_m2": 112.0,
    "data_dodania": null,
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -419,7 +482,7 @@
    "cena_za_m2": 183.14,
    "data_dodania": "2026-09-20",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "67965717",
@@ -440,7 +503,7 @@
    "cena_za_m2": 173.16,
    "data_dodania": "2026-09-12",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "68402681",
@@ -461,7 +524,7 @@
    "cena_za_m2": 149.59,
    "data_dodania": "2026-09-10",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "68381713",
@@ -482,7 +545,7 @@
    "cena_za_m2": 32.14,
    "data_dodania": "2026-09-04",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_48704389",
@@ -502,7 +565,7 @@
    "powierzchnia_m2": 410.0,
    "cena_za_m2": 561.0,
    "data_dodania": "2026-08-23",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -523,7 +586,7 @@
    "powierzchnia_m2": 1800.0,
    "cena_za_m2": 163.89,
    "data_dodania": "2026-08-17",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -544,7 +607,7 @@
    "powierzchnia_m2": 6400.0,
    "cena_za_m2": 87.0,
    "data_dodania": "2026-07-26",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -565,7 +628,7 @@
    "powierzchnia_m2": 1271.0,
    "cena_za_m2": 118.02,
    "data_dodania": "2026-07-24",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -586,7 +649,7 @@
    "powierzchnia_m2": 8000.0,
    "cena_za_m2": 6.0,
    "data_dodania": "2026-07-20",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -608,7 +671,7 @@
    "cena_za_m2": 38.31,
    "data_dodania": "2026-07-01",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "68058315",
@@ -628,7 +691,7 @@
    "powierzchnia_m2": 2600.0,
    "cena_za_m2": 267.31,
    "data_dodania": "2026-05-29",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -649,7 +712,7 @@
    "powierzchnia_m2": 2010.0,
    "cena_za_m2": 184.0,
    "data_dodania": "2026-05-11",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -670,7 +733,7 @@
    "powierzchnia_m2": 7886.0,
    "cena_za_m2": 42.0,
    "data_dodania": "2026-04-24",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -691,7 +754,7 @@
    "powierzchnia_m2": 7886.0,
    "cena_za_m2": 41.85,
    "data_dodania": "2026-04-24",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -713,7 +776,7 @@
    "cena_za_m2": 102.98,
    "data_dodania": "2026-03-28",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "67839937",
@@ -734,7 +797,7 @@
    "cena_za_m2": 86.24,
    "data_dodania": "2026-03-24",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_45123787",
@@ -754,7 +817,7 @@
    "powierzchnia_m2": 10585.0,
    "cena_za_m2": 103.0,
    "data_dodania": "2025-11-21",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -775,8 +838,8 @@
    "powierzchnia_m2": 1000.0,
    "cena_za_m2": 120.0,
    "data_dodania": "2025-10-27",
-   "last_seen": "2026-10-03",
-   "active": false
+   "last_seen": "2026-10-04",
+   "active": true
   },
   {
    "id": "67381013",
@@ -796,7 +859,7 @@
    "powierzchnia_m2": 1386.0,
    "cena_za_m2": 120.0,
    "data_dodania": "2025-10-24",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -817,8 +880,8 @@
    "powierzchnia_m2": 12500.0,
    "cena_za_m2": 96.0,
    "data_dodania": "2025-10-18",
-   "last_seen": "2026-10-03",
-   "active": false
+   "last_seen": "2026-10-04",
+   "active": true
   },
   {
    "id": "67247021",
@@ -838,8 +901,8 @@
    "powierzchnia_m2": 907.0,
    "cena_za_m2": 154.36,
    "data_dodania": "2025-09-16",
-   "last_seen": "2026-10-03",
-   "active": false
+   "last_seen": "2026-10-04",
+   "active": true
   },
   {
    "id": "gratka_44016159",
@@ -859,7 +922,7 @@
    "powierzchnia_m2": 12801.0,
    "cena_za_m2": 47.0,
    "data_dodania": "2025-09-12",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -881,7 +944,7 @@
    "cena_za_m2": 120.0,
    "data_dodania": "2025-02-26",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_35173643",
@@ -901,7 +964,7 @@
    "powierzchnia_m2": 1144.0,
    "cena_za_m2": 92.0,
    "data_dodania": "2024-07-11",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -923,7 +986,7 @@
    "cena_za_m2": 91.78,
    "data_dodania": "2024-07-11",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_35087147",
@@ -943,7 +1006,7 @@
    "powierzchnia_m2": 819.0,
    "cena_za_m2": 65.0,
    "data_dodania": "2024-07-03",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   },
   {
@@ -965,7 +1028,7 @@
    "cena_za_m2": 65.0,
    "data_dodania": "2024-07-03",
    "last_seen": "2026-10-03",
-   "active": true
+   "active": false
   },
   {
    "id": "65317872",
@@ -985,7 +1048,7 @@
    "powierzchnia_m2": 1478.0,
    "cena_za_m2": 138.7,
    "data_dodania": "2024-04-11",
-   "last_seen": "2026-10-03",
+   "last_seen": "2026-10-04",
    "active": true
   }
  ]
