@@ -1,6 +1,69 @@
 {
- "generated": "2026-10-06T01:08:38+00:00",
+ "generated": "2026-10-06T23:34:35+00:00",
  "listings": [
+  {
+   "id": "gratka_49178663",
+   "first_seen": "2026-10-06",
+   "prices": [
+    [
+     "2026-10-06",
+     115000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Działka jest MPZP pod zabudowe mieszkaniowa Świniotop/Kamieńczyk",
+   "miejscowosc": "Świniotop",
+   "odcinek": "Dolny bieg",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-wyszkow/ob/49178663",
+   "cena_pln": 115000.0,
+   "powierzchnia_m2": 839.0,
+   "cena_za_m2": 137.0,
+   "data_dodania": "2026-10-04",
+   "last_seen": "2026-10-06",
+   "active": true
+  },
+  {
+   "id": "gratka_48648017",
+   "first_seen": "2026-10-06",
+   "prices": [
+    [
+     "2026-10-06",
+     295000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Zabudowana działka | 1800 m2 | Kamieńczyk centrum",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-wyszkow-marszalka-jozefa-pilsudskiego/ob/48648017",
+   "cena_pln": 295000.0,
+   "powierzchnia_m2": 1800.0,
+   "cena_za_m2": 164.0,
+   "data_dodania": "2026-08-17",
+   "last_seen": "2026-10-06",
+   "active": true
+  },
+  {
+   "id": "gratka_48367871",
+   "first_seen": "2026-10-06",
+   "prices": [
+    [
+     "2026-10-06",
+     150000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Działka na WZ z własnym lasem 1271 m2",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-wyszkow-profesora-romana-kozlowskiego/ob/48367871",
+   "cena_pln": 150000.0,
+   "powierzchnia_m2": 1271.0,
+   "cena_za_m2": 118.0,
+   "data_dodania": "2026-07-24",
+   "last_seen": "2026-10-06",
+   "active": true
+  },
   {
    "id": "adresowo_4286456",
    "first_seen": "2026-10-06",
@@ -41,7 +104,7 @@
    "cena_za_m2": 118.0,
    "data_dodania": "2026-10-05",
    "last_seen": "2026-10-06",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_48848143",
@@ -104,7 +167,7 @@
    "cena_za_m2": 137.07,
    "data_dodania": "2026-10-04",
    "last_seen": "2026-10-06",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_44044895",
@@ -629,7 +692,7 @@
    "cena_za_m2": 163.89,
    "data_dodania": "2026-08-17",
    "last_seen": "2026-10-06",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_48384719",
@@ -671,7 +734,7 @@
    "cena_za_m2": 118.02,
    "data_dodania": "2026-07-24",
    "last_seen": "2026-10-06",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_48312581",
@@ -716,6 +779,27 @@
    "active": false
   },
   {
+   "id": "gratka_47582831",
+   "first_seen": "2026-05-29",
+   "prices": [
+    [
+     "2026-10-06",
+     695000.0
+    ]
+   ],
+   "zrodlo": "Gratka",
+   "tytul": "Działka na skarpie Bugu w centrum |2600 m2 z domem",
+   "miejscowosc": "Kamieńczyk",
+   "odcinek": "Ujście",
+   "url": "https://gratka.pl/nieruchomosci/dzialka-wyszkowski-wyszkow-armii-krajowej/ob/47582831",
+   "cena_pln": 695000.0,
+   "powierzchnia_m2": 2600.0,
+   "cena_za_m2": 267.0,
+   "data_dodania": "2026-05-29",
+   "last_seen": "2026-10-06",
+   "active": true
+  },
+  {
    "id": "68058315",
    "first_seen": "2026-05-29",
    "prices": [
@@ -734,7 +818,7 @@
    "cena_za_m2": 267.31,
    "data_dodania": "2026-05-29",
    "last_seen": "2026-10-06",
-   "active": true
+   "active": false
   },
   {
    "id": "gratka_47318993",
@@ -797,7 +881,7 @@
    "cena_za_m2": 41.85,
    "data_dodania": "2026-04-24",
    "last_seen": "2026-10-06",
-   "active": true
+   "active": false
   },
   {
    "id": "67469205",
@@ -902,7 +986,7 @@
    "cena_za_m2": 120.0,
    "data_dodania": "2025-10-24",
    "last_seen": "2026-10-06",
-   "active": true
+   "active": false
   },
   {
    "id": "67118337",
@@ -1091,7 +1175,7 @@
    "cena_za_m2": 138.7,
    "data_dodania": "2024-04-11",
    "last_seen": "2026-10-06",
-   "active": true
+   "active": false
   }
  ]
 }
