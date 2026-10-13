@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-13T01:49:38+00:00",
+ "generated": "2026-10-13T23:37:25+00:00",
  "listings": [
   {
    "id": "adresowo_4296994",
@@ -344,6 +344,10 @@
     [
      "2026-10-03",
      299999.0
+    ],
+    [
+     "2026-10-13",
+     265000.0
     ]
    ],
    "zrodlo": "Adresowo",
@@ -351,9 +355,9 @@
    "miejscowosc": "Kamieńczyk",
    "odcinek": "Ujście",
    "url": "https://adresowo.pl/o/dzialka-budowlana-wyszkow-kamienczyk-ul-szmaragdowa-e3l7k3",
-   "cena_pln": 299999.0,
+   "cena_pln": 265000.0,
    "powierzchnia_m2": 3081.0,
-   "cena_za_m2": 97.0,
+   "cena_za_m2": 86.0,
    "data_dodania": null,
    "last_seen": "2026-10-13",
    "active": true
